@@ -29,7 +29,8 @@ class TurmaController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Curso', 'Sala']
+            'contain' => ['Curso', 'Sala'],
+            'conditions'=>['ativo'=>true]
         ];
         $this->set('turma', $this->paginate($this->Turma));
         $this->set('_serialize', ['turma']);
@@ -101,22 +102,13 @@ class TurmaController extends AppController
         $this->set('_serialize', ['turma']);
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Turma id.
-     * @return void Redirects to index.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $turma = $this->Turma->get($id);
-        if ($this->Turma->delete($turma)) {
-            $this->Flash->success(__('The turma has been deleted.'));
-        } else {
-            $this->Flash->error(__('The turma could not be deleted. Please, try again.'));
-        }
-        return $this->redirect(['action' => 'index']);
+    public function verTurmas($curso_id = null){
+        $this->paginate = [
+            'contain' => ['Curso', 'Sala'],
+            'conditions'=>['ativo'=>true, 'Curso.id'=>$curso_id]
+        ];
+        $this->set('turma', $this->paginate($this->Turma));
+        $this->set('_serialize', ['turma']);
+
     }
 }

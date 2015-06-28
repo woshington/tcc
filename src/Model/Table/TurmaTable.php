@@ -12,6 +12,7 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\BelongsTo $Curso
  * @property \Cake\ORM\Association\BelongsTo $Sala
+ * @property \Cake\ORM\Association\HasMany $GradeCurricular
  */
 class TurmaTable extends Table
 {
@@ -25,7 +26,7 @@ class TurmaTable extends Table
     public function initialize(array $config)
     {
         $this->table('turma');
-        $this->displayField('id');
+        $this->displayField('nome');
         $this->primaryKey('id');
         $this->belongsTo('Curso', [
             'foreignKey' => 'curso_id',
@@ -34,6 +35,9 @@ class TurmaTable extends Table
         $this->belongsTo('Sala', [
             'foreignKey' => 'sala_id',
             'joinType' => 'INNER'
+        ]);
+        $this->hasMany('GradeCurricular', [
+            'foreignKey' => 'turma_id'
         ]);
     }
 

@@ -1,14 +1,14 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\ProfessorTable;
+use App\Model\Table\GradeCurricularTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\ProfessorTable Test Case
+ * App\Model\Table\GradeCurricularTable Test Case
  */
-class ProfessorTableTest extends TestCase
+class GradeCurricularTableTest extends TestCase
 {
 
     /**
@@ -17,15 +17,15 @@ class ProfessorTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
+        'app.grade_curricular',
+        'app.disciplina',
         'app.professor',
         'app.usuario',
         'app.administrador',
         'app.eixo',
-        'app.grade_curricular',
-        'app.disciplina',
-        'app.turma',
         'app.curso',
         'app.modalidade',
+        'app.turma',
         'app.sala'
     ];
 
@@ -37,8 +37,8 @@ class ProfessorTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Professor') ? [] : ['className' => 'App\Model\Table\ProfessorTable'];
-        $this->Professor = TableRegistry::get('Professor', $config);
+        $config = TableRegistry::exists('GradeCurricular') ? [] : ['className' => 'App\Model\Table\GradeCurricularTable'];
+        $this->GradeCurricular = TableRegistry::get('GradeCurricular', $config);
     }
 
     /**
@@ -48,7 +48,7 @@ class ProfessorTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Professor);
+        unset($this->GradeCurricular);
 
         parent::tearDown();
     }

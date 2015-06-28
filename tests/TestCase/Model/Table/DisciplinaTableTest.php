@@ -1,14 +1,14 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\ProfessorTable;
+use App\Model\Table\DisciplinaTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\ProfessorTable Test Case
+ * App\Model\Table\DisciplinaTable Test Case
  */
-class ProfessorTableTest extends TestCase
+class DisciplinaTableTest extends TestCase
 {
 
     /**
@@ -17,16 +17,8 @@ class ProfessorTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.professor',
-        'app.usuario',
-        'app.administrador',
-        'app.eixo',
-        'app.grade_curricular',
         'app.disciplina',
-        'app.turma',
-        'app.curso',
-        'app.modalidade',
-        'app.sala'
+        'app.grade_curricular'
     ];
 
     /**
@@ -37,8 +29,8 @@ class ProfessorTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Professor') ? [] : ['className' => 'App\Model\Table\ProfessorTable'];
-        $this->Professor = TableRegistry::get('Professor', $config);
+        $config = TableRegistry::exists('Disciplina') ? [] : ['className' => 'App\Model\Table\DisciplinaTable'];
+        $this->Disciplina = TableRegistry::get('Disciplina', $config);
     }
 
     /**
@@ -48,7 +40,7 @@ class ProfessorTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Professor);
+        unset($this->Disciplina);
 
         parent::tearDown();
     }
@@ -69,16 +61,6 @@ class ProfessorTableTest extends TestCase
      * @return void
      */
     public function testValidationDefault()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     */
-    public function testBuildRules()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

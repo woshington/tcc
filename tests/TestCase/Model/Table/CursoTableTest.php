@@ -19,6 +19,12 @@ class CursoTableTest extends TestCase
     public $fixtures = [
         'app.curso',
         'app.modalidade',
+        'app.grade_curricular',
+        'app.disciplina',
+        'app.professor',
+        'app.usuario',
+        'app.administrador',
+        'app.eixo',
         'app.turma',
         'app.sala'
     ];

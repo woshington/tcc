@@ -1,20 +1,20 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\Professor;
+use App\Model\Entity\GradeCurricular;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Professor Model
+ * GradeCurricular Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Usuario
- * @property \Cake\ORM\Association\BelongsTo $Eixo
- * @property \Cake\ORM\Association\HasMany $GradeCurricular
+ * @property \Cake\ORM\Association\BelongsTo $Disciplina
+ * @property \Cake\ORM\Association\BelongsTo $Professor
+ * @property \Cake\ORM\Association\BelongsTo $Turma
  */
-class ProfessorTable extends Table
+class GradeCurricularTable extends Table
 {
 
     /**
@@ -25,19 +25,20 @@ class ProfessorTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('professor');
-        $this->displayField('nome');
+        $this->table('grade_curricular');
+        $this->displayField('id');
         $this->primaryKey('id');
-        $this->belongsTo('Usuario', [
-            'foreignKey' => 'usuario_id',
+        $this->belongsTo('Disciplina', [
+            'foreignKey' => 'disciplina_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('Eixo', [
-            'foreignKey' => 'eixo_id',
+        $this->belongsTo('Professor', [
+            'foreignKey' => 'professor_id',
             'joinType' => 'INNER'
         ]);
-        $this->hasMany('GradeCurricular', [
-            'foreignKey' => 'professor_id'
+        $this->belongsTo('Turma', [
+            'foreignKey' => 'turma_id',
+            'joinType' => 'INNER'
         ]);
     }
 
@@ -54,9 +55,14 @@ class ProfessorTable extends Table
             ->allowEmpty('id', 'create');
             
         $validator
-            ->add('coordenador', 'valid', ['rule' => 'boolean'])
-            ->requirePresence('coordenador', 'create')
-            ->notEmpty('coordenador');
+            ->add('carga_horaria', 'valid', ['rule' => 'numeric'])
+            ->requirePresence('carga_horaria', 'create')
+            ->notEmpty('carga_horaria');
+            
+        $validator
+            ->add('obrigatorio', 'valid', ['rule' => 'boolean'])
+            ->requirePresence('obrigatorio', 'create')
+            ->notEmpty('obrigatorio');
 
         return $validator;
     }
@@ -70,8 +76,9 @@ class ProfessorTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['usuario_id'], 'Usuario'));
-        $rules->add($rules->existsIn(['eixo_id'], 'Eixo'));
+        $rules->add($rules->existsIn(['disciplina_id'], 'Disciplina'));
+        $rules->add($rules->existsIn(['professor_id'], 'Professor'));
+        $rules->add($rules->existsIn(['turma_id'], 'Turma'));
         return $rules;
     }
 }

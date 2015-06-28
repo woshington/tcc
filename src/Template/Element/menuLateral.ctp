@@ -6,6 +6,8 @@
         <li><?= $this->Html->link(__('Turma'), ['controller'=>'turma', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('Eixo'), ['controller'=>'eixo', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('Sala'), ['controller'=>'sala', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('Disciplina'), ['controller'=>'disciplina', 'action' => 'index']) ?>
+        <li><?= $this->Html->link(__('Grade'), ['controller'=>'gradeCurricular', 'action' => 'index']) ?></li>
         <hr />
         <li><?= $this->Html->link(__('Administrador'), ['controller' => 'administrador', 'action' => 'index']) ?></li>        
         <li><?= $this->Html->link(__('Professor'), ['controller' => 'Professor', 'action' => 'index']) ?></li>        

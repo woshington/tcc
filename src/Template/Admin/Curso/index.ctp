@@ -20,6 +20,7 @@
             <td class="actions">
                 <?= $this->Html->link(__('View'), ['action' => 'view', $curso->id]) ?>
                 <?= $this->Html->link(__('Edit'), ['action' => 'edit', $curso->id]) ?>
+                <?= $this->Html->link(__('Turmas'), ['controller'=>'turma', 'action' => 'verTurmas', $curso->id]) ?>
             </td>
         </tr>
 
