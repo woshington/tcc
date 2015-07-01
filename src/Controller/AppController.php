@@ -65,6 +65,8 @@ class AppController extends Controller
     }
 
     public function beforeFilter(Event $event){
+        $this->layout = 'bootstrap';
+        
         $this->set('CHs', $this->CHs);
         $this->set('turnos', $this->turnos);
         $this->set('usuarioLogado', $this->Auth->user());
@@ -74,10 +76,13 @@ class AppController extends Controller
 
     public function isAuthorized($user = null)
     {
-        $admin = $this->Administrador->findByUsuarioId($user['id']);
-        $professor = $this->Professor->findByUsuarioId($user['id']);
+        $admin = $this->Administrador->find('all', [
+            'conditions'=>['usuario_id'=>$user['id']]
+        ])->first();
+        $professor = $this->Professor->find('all', [
+            'conditions'=>['usuario_id'=>$user['id']]
+        ])->first();
 
-        // Any registered user can access public functions
         if (empty($this->request->params['prefix'])) {
             return true;
         }
@@ -88,7 +93,6 @@ class AppController extends Controller
             return (bool)($admin);
         }
         if ($this->request->params['prefix'] === 'coordenador') {
-            $professor = $professor->first();
             return $professor->coordenador;
         }
         return false;

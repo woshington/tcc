@@ -1,24 +1,17 @@
-<?=$this->element('menuLateral')?>
-<div class="curso view large-10 medium-9 columns">
-    <h2><?= h($curso->sigla) ?></h2>
-    <div class="row">
-        <div class="large-5 columns strings">
-            <h6 class="subheader"><?= __('Descricao') ?></h6>
-            <p><?= h($curso->descricao) ?></p>
-            <h6 class="subheader"><?= __('Modalidade') ?></h6>
-            <p><?= $curso->has('modalidade') ? $this->Html->link($curso->modalidade->descricao, ['controller' => 'Modalidade', 'action' => 'view', $curso->modalidade->id]) : '' ?></p>
-        </div>
-        <div class="large-2 columns numbers end">
-            <h6 class="subheader"><?= __('Id') ?></h6>
-            <p><?= $this->Number->format($curso->id) ?></p>
-        </div>
+<div class="panel panel-primary">
+    <div class="panel-heading">Detalhes</div>
+    <div class="panel-body">
+        <h3><?=$curso->descricao?> </h3>
+        <h3><span class="label label-default"> <?=$curso->sigla?></span></h3>
+        <h3><span class="label label-default"> <?=$curso->modalidade->descricao?></span></h3>
     </div>
+    <div class="panel-footer"><?=$this->Html->link('Editar', ['action'=>'edit', $curso->id])?></div>
 </div>
-<div class="related row">
-    <div class="column large-12">
-    <h4 class="subheader"><?= __('Related Turma') ?></h4>
     <?php if (!empty($curso->turma)): ?>
-    <table cellpadding="0" cellspacing="0">
+<div class="panel panel-default">
+    <div class="panel-heading">Turmas relacionadas</div>
+        <div class="panel-body">
+        <table class="table table-striped">
         <tr>
             <th><?= __('Nome') ?></th>
             <th><?= __('Ano') ?></th>

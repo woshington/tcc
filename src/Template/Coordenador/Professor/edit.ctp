@@ -1,15 +1,22 @@
-<?=$this->element('menuLateralCoord')?>
-<div class="professor form large-10 medium-9 columns">
+<div class="panel panel-default">
+  <div class="panel-heading">Cadastro de Professor</div>
+  <div class="panel-body">
     <?= $this->Form->create($professor) ?>
-    <fieldset>
-        <legend><?= __('Edit Professor') ?></legend>
-        <?php
-            echo $this->Form->input('usuario.nome');
-            echo $this->Form->input('usuario.email');
-            echo $this->Form->input('usuario.ativo');
-            echo $this->Form->input('usuario.matricula');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <div class="form-group">
+        <?=$this->Form->input('usuario.nome', ['div'=>false, 'class'=>'form-control']);?>
+    </div>
+    <div class="form-group">
+        <?=$this->Form->input('usuario.email', ['div'=>false, 'class'=>'form-control']);?>
+    </div>
+    <div class="form-group">
+        <?=$this->Form->input('usuario.matricula', ['div'=>false, 'class'=>'form-control']);?>
+    </div>
+    <div class="form-group">
+        <?=$this->Form->input('usuario.ativo', ['div'=>false, 'class'=>'form-control']);?>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-default">Salvar</button>    
+    </div>
     <?= $this->Form->end() ?>
+    </div>
 </div>

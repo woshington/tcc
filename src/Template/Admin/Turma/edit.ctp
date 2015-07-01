@@ -1,17 +1,27 @@
-<?=$this->element('menuLateral')?>
-<div class="turma form large-10 medium-9 columns">
+<div class="panel panel-default">
+  <div class="panel-heading">Cadastro de Turma</div>
+  <div class="panel-body">
     <?= $this->Form->create($turma) ?>
-    <fieldset>
-        <legend><?= __('Edit Turma') ?></legend>
-        <?php
-            echo $this->Form->input('nome');
-            echo $this->Form->input('ano');
-            echo $this->Form->input('turno');
-            echo $this->Form->input('ativo');
-            echo $this->Form->input('curso_id', ['options' => $curso]);
-            echo $this->Form->input('sala_id', ['options' => $sala]);
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <div class="form-group">
+        <?=$this->Form->input('nome', ['div'=>false, 'class'=>'form-control']);?>
+    </div>
+    <div class="form-group">
+        <?=$this->Form->input('ano', ['options'=>$anos, 'div'=>false, 'class'=>'form-control']);?>
+    </div>
+    <div class="form-group">
+        <?=$this->Form->input('turno', ['options'=>$turnos, 'div'=>false, 'class'=>'form-control']);?>
+    </div>
+    <div class="form-group">
+        <?=$this->Form->input('curso_id', ['options'=>$curso, 'div'=>false, 'class'=>'form-control']);?>
+    </div>
+    <div class="form-group">
+        <?=$this->Form->input('sala_id', ['options'=>$sala, 'div'=>false, 'class'=>'form-control']);?>
+    </div>
+    <div class="form-group">
+        <?=$this->Form->input('ativo', ['div'=>false, 'class'=>'form-control']);?>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-default">Salvar</button>    
+    </div>
     <?= $this->Form->end() ?>
 </div>

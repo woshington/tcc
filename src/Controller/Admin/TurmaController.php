@@ -111,4 +111,10 @@ class TurmaController extends AppController
         $this->set('_serialize', ['turma']);
 
     }
+
+    public function getTurmas($curso_id=null){
+        $this->layout = 'ajax';
+        $this->autoRender = FALSE;
+        echo json_encode($this->Turma->findByCursoIdAndAtivo($curso_id, true)->toArray());
+    }
 }

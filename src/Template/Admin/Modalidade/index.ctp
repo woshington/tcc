@@ -1,6 +1,7 @@
-<?=$this->element('menuLateral')?>
-<div class="modalidade index large-10 medium-9 columns">
-    <table cellpadding="0" cellspacing="0">
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Modalidades</div>
+  <div class="panel-body">
+    <table class="table table-striped">
     <thead>
         <tr>
             <th><?= $this->Paginator->sort('descrição') ?></th>
@@ -29,6 +30,5 @@
             <?= $this->Paginator->next(__('next') . ' >') ?>
         </ul>
         <p><?= $this->Paginator->counter() ?></p>
-        <?=$this->Html->link('Nova', ['controller'=>'modalidade', 'action'=>'add'])?>
     </div>
 </div>

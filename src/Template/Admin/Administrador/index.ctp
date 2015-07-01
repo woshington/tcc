@@ -1,6 +1,7 @@
-<?=$this->element('menuLateral')?>
-<div class="administrador index large-10 medium-9 columns">
-    <table cellpadding="0" cellspacing="0">
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Administradores</div>
+  <div class="panel-body">
+    <table class="table table-striped">
     <thead>
         <tr>
             <th><?= $this->Paginator->sort('cargo') ?></th>

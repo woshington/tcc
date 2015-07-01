@@ -11,18 +11,16 @@ use App\Controller\AppController;
 class GradeCurricularController extends AppController
 {
 
-    /**
-     * Index method
-     *
-     * @return void
-     */
-    public function index()
+    public function initialize()
     {
-        $this->paginate = [
-            'contain' => ['Disciplina', 'Professor', 'Turma']
-        ];
-        $this->set('gradeCurricular', $this->paginate($this->GradeCurricular));
-        $this->set('_serialize', ['gradeCurricular']);
+        parent::initialize();
+        $this->loadComponent('RequestHandler');
+    }
+
+
+    public function index()
+    {        
+        
     }
 
     /**
@@ -48,28 +46,17 @@ class GradeCurricularController extends AppController
      */
     public function add()
     {
-        $gradeCurricular = $this->GradeCurricular->newEntity();
+        $this->loadModel('Curso');
         if ($this->request->is('post')) {
-            $gradeCurricular = $this->GradeCurricular->patchEntity($gradeCurricular, $this->request->data);
-            if ($this->GradeCurricular->save($gradeCurricular)) {
-                $this->Flash->success(__('The grade curricular has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The grade curricular could not be saved. Please, try again.'));
-            }
-        }
-        $disciplina = $this->GradeCurricular->Disciplina->find('list', ['limit' => 200]);
-        $professor = $this->GradeCurricular->Professor->find('all');
-        
-        $professores = [];
-        foreach ($professor as $professor) {
-            $professores[$professor->id] = $professor->usuario->nome;
+            $this->paginate = [
+                'contain' => ['Disciplina', 'Professor', 'Turma']
+            ];
+            $this->set('gradeCurricular', $this->paginate($this->GradeCurricular));
+            $this->set('_serialize', ['gradeCurricular']);
         }
         
-        $turma = $this->GradeCurricular->Turma->find('list', ['limit' => 200]);
-        
-        $this->set(compact('gradeCurricular', 'disciplina', 'professores', 'turma'));
-        $this->set('_serialize', ['gradeCurricular']);
+        $cursos = $this->Curso->find('list');
+        $this->set(compact('cursos', 'url'));
     }
 
     /**

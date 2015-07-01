@@ -1,20 +1,13 @@
-<?=$this->element('menuLateral')?>
-<div class="administrador view large-10 medium-9 columns">
-
-    <h2><?= h($administrador->usuario->nome) ?></h2>
-    <div class="row">
-        <div class="large-5 columns strings">
-            <h6 class="subheader"><?= __('Cargo') ?></h6>
-            <p><?= h($administrador->cargo) ?></p>
-            <h6 class="subheader"><?= __('Setor') ?></h6>
-            <p><?= h($administrador->setor) ?></p>
-            <h6 class="subheader"><?= __('Usuario') ?></h6>
+<div class="panel panel-primary">
+    <div class="panel-heading">Detalhes</div>
+    <div class="panel-body">
+        <h3>Nome: <?= h($administrador->usuario->nome)?> </h3>
+        <h3>Cargo: <?=$administrador->cargo?> </h3>
+        <h3>Setor: <?=$administrador->setor?> </h3>
         </div>
-        
-        <div class="large-2 columns numbers end">
-        <p><?=$this->Html->link(__('Editar'), ['action'=>'edit', $administrador->id])?></p>
-        <p><?=$this->Html->link('Nova senha', ['controller'=>'usuario', 'action'=>'novaSenha', $administrador->usuario->id])?></p>
+        <div class="panel-footer">
+            <?=$this->Html->link('Editar', ['action'=>'edit', $administrador->id])?> |
+            <?=$this->Html->link('Nova senha', ['controller'=>'usuario', 'action'=>'novaSenha', $administrador->usuario->id])?>
         </div>
-        
-    </div>    
+    </div>
 </div>

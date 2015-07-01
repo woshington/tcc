@@ -51,14 +51,14 @@ class ProfessorController extends AppController
         $professor = $this->Professor->newEntity();
         if ($this->request->is('post')) {
             $professor = $this->Professor->patchEntity($professor, $this->request->data, [
-                'associated'=>'Usuario'                
+                'associated'=>'Usuario'
             ]);            
             if ($this->Professor->save($professor)) {
                 $this->Flash->success(__('The professor has been saved.'));
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The professor could not be saved. Please, try again.'));
-            }
+            }            
         }
         $usuario = $this->Professor->Usuario->find('list', ['limit' => 200]);
         $eixo = $this->Professor->Eixo->find('list', ['limit' => 200]);

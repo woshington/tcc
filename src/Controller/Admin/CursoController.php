@@ -88,23 +88,4 @@ class CursoController extends AppController
         $this->set(compact('curso', 'modalidade'));
         $this->set('_serialize', ['curso']);
     }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id Curso id.
-     * @return void Redirects to index.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $curso = $this->Curso->get($id);
-        if ($this->Curso->delete($curso)) {
-            $this->Flash->success(__('The curso has been deleted.'));
-        } else {
-            $this->Flash->error(__('The curso could not be deleted. Please, try again.'));
-        }
-        return $this->redirect(['action' => 'index']);
-    }
 }

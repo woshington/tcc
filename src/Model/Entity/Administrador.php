@@ -17,7 +17,7 @@ class Administrador extends Entity
      */
     protected $_accessible = ['*'=>true];
 
-    protected function _getUsuario()
+    protected function _getUsuarios()
     {
         $usuario = TableRegistry::get('Usuario');        
         return $usuario->findById($this->usuario_id)->first();

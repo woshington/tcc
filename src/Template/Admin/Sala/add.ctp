@@ -1,12 +1,13 @@
-<?=$this->element('menuLateral')?>
-<div class="sala form large-10 medium-9 columns">
+<div class="panel panel-default">
+  <div class="panel-heading">Cadastro de Sala</div>
+  <div class="panel-body">
     <?= $this->Form->create($sala) ?>
-    <fieldset>
-        <legend><?= __('Add Sala') ?></legend>
-        <?php
-            echo $this->Form->input('nome');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+  <div class="form-group">
+        <?=$this->Form->input('nome', ['div'=>false, 'class'=>'form-control']);?>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-default">Salvar</button>    
+    </div>
     <?= $this->Form->end() ?>
+	</div>
 </div>

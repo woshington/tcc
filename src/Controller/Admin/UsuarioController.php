@@ -12,6 +12,13 @@ use App\Controller\AppController;
 class UsuarioController extends AppController
 {
 
+    public function index(){
+        $this->paginate = [
+            'contain'=>['Administrador', 'Professor']
+        ];
+        $this->set('usuario', $this->paginate($this->Usuario));
+        $this->set('_serialize', ['usuario']);
+    }
     public function novaSenha($id = null){
         $usuario = $this->Usuario->get($id, [
             'contain' => []

@@ -1,18 +1,27 @@
-<?=$this->element('menuLateral')?>
-<div class="administrador form large-10 medium-9 columns">
+<div class="panel panel-default">
+  <div class="panel-heading">Editar administrador</div>
+  <div class="panel-body">
     <?= $this->Form->create($administrador) ?>
-    <fieldset>
-        <legend><?= __('Edit Administrador') ?></legend>
-        <?php
-            echo $this->Form->input('id');
-            echo $this->Form->input('usuario.nome');
-            echo $this->Form->input('usuario.email');
-            echo $this->Form->input('usuario.ativo');
-            echo $this->Form->input('usuario.matricula');
-            echo $this->Form->input('cargo');
-            echo $this->Form->input('setor');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <div class="form-group">
+        <?=$this->Form->input('usuario.nome', ['div'=>false, 'class'=>'form-control']);?>
+    </div>
+    <div class="form-group">
+        <?=$this->Form->input('usuario.email', ['div'=>false, 'class'=>'form-control']);?>
+    </div>
+    <div class="form-group">
+        <?=$this->Form->input('usuario.matricula', ['div'=>false, 'class'=>'form-control']);?>
+    </div>
+    <div class="form-group">
+        <?=$this->Form->input('usuario.ativo', ['div'=>false, 'class'=>'form-control']);?>
+    </div>
+    <div class="form-group">
+        <?=$this->Form->input('cargo', ['div'=>false, 'class'=>'form-control']);?>
+    </div>
+    <div class="form-group">
+        <?=$this->Form->input('setor', ['div'=>false, 'class'=>'form-control']);?>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-default">Salvar</button>    
+    </div>
     <?= $this->Form->end() ?>
 </div>
