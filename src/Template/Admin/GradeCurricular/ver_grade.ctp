@@ -1,14 +1,20 @@
-<?=$this->element('menuLateral')?>
-<div class="gradeCurricular index large-10 medium-9 columns">
-    <table cellpadding="0" cellspacing="0">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Grade da turma: <?=$turma->nome?>
+    <?php 
+        echo $this->Html->link(__('Editar'), ['action'=>'editarGrade', $turma->id], [
+            'class'=>'btn btn-info'
+        ]);
+    ?>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
     <thead>
         <tr>
             <th><?= $this->Paginator->sort('carga_horaria') ?></th>
             <th><?= $this->Paginator->sort('obrigatorio') ?></th>
             <th><?= $this->Paginator->sort('disciplina_id') ?></th>
             <th><?= $this->Paginator->sort('professor_id') ?></th>
-            <th><?= $this->Paginator->sort('turma_id') ?></th>
-            <th class="actions"><?= __('Actions') ?></th>
         </tr>
     </thead>
     <tbody>
@@ -20,12 +26,7 @@
                 <?= $gradeCurricular->has('disciplina') ? $gradeCurricular->disciplina->nome : '' ?>
             </td>
             <td>
-                <?= $gradeCurricular->has('professor') ? $gradeCurricular->professor->usuario->nome : '' ?>
-            </td>
-            <td><?= h($gradeCurricular->turma->nome) ?></td>
-            <td class="actions">
-                <?= $this->Html->link(__('View'), ['action' => 'view', $gradeCurricular->id]) ?>
-                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $gradeCurricular->id]) ?>
+                <?= $gradeCurricular->has('professor') ? $gradeCurricular->professor->usuarios->nome : '' ?>
             </td>
         </tr>
 

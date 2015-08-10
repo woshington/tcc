@@ -14,11 +14,11 @@
         });
     });
 </script>
-<div class="col-md-9"> 
+<div class="col-md-12"> 
 <div class="panel panel-default">
   <div class="panel-heading">Turmas</div>
   <div class="panel-body">
-    <?=$this->Form->create()?>
+    <?=$this->Form->create($gradeCurricular)?>
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
@@ -29,14 +29,21 @@
             <div class="form-group">
                 <?=$this->Form->input('turma', ['class'=>'form-control', 'options'=>[], 'empty'=>'Escolha uma turma', 'id'=>'turmasId']);?>
             </div>            
-        </div>                
+        </div>        
     </div>
-    <div class="row col-md-10">
+    <div class="row">
+    <div class="col-md-10">
+        <div class="form-group">
+            <?= $this->Form->select('disciplina_id', $disciplinas, ['multiple' => true, 'class'=>'form-control', 'style'=>'height:300px;']);?>
+        </div>
+    </div>
+    <div class="col-md-2">
         <div class="form-group">
             <button type="submit" class="btn btn-primary">
                 <span class="glyphicon glyphicon-plus"><i> Grade</i></span> 
             </button>    
-        </div>        
+        </div>
+    </div>
     </div>
     <?=$this->Form->end()?>
   </div>

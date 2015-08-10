@@ -74,4 +74,14 @@ class ProfessorTable extends Table
         $rules->add($rules->existsIn(['eixo_id'], 'Eixo'));
         return $rules;
     }
+
+    public function getList()
+    {
+        $professores = $this->find('all', ['contain'=>'Usuario']);
+        $retorno = array();
+        foreach ($professores as $professor) {
+            $retorno[$professor->id] = $professor->usuario->nome;
+        }
+        return $retorno;
+    }
 }

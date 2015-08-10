@@ -23,9 +23,9 @@ class GradeCurricularTableTest extends TestCase
         'app.usuario',
         'app.administrador',
         'app.eixo',
+        'app.turma',
         'app.curso',
         'app.modalidade',
-        'app.turma',
         'app.sala'
     ];
 
@@ -79,6 +79,16 @@ class GradeCurricularTableTest extends TestCase
      * @return void
      */
     public function testBuildRules()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test unico method
+     *
+     * @return void
+     */
+    public function testUnico()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

@@ -94,23 +94,4 @@ class ProfessorController extends AppController
         $this->set(compact('professor', 'usuario', 'eixo'));
         $this->set('_serialize', ['professor']);
     }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id Professor id.
-     * @return void Redirects to index.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $professor = $this->Professor->get($id);
-        if ($this->Professor->delete($professor)) {
-            $this->Flash->success(__('The professor has been deleted.'));
-        } else {
-            $this->Flash->error(__('The professor could not be deleted. Please, try again.'));
-        }
-        return $this->redirect(['action' => 'index']);
-    }
 }

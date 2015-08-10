@@ -4,6 +4,7 @@
 		  <div class="panel-body">
 			<?= $this->Flash->render('auth') ?>
 			<?= $this->Form->create('usuario', ['class'=>"form-signin"]) ?>
+
 			<div class="form-group">
 		        <?=$this->Form->input('email', ['div'=>false, 'class'=>'form-control']);?>
 		    </div>

@@ -36,7 +36,7 @@ class AppController extends Controller
      * @return void
      */
     protected $CHs = [50=>'50 Minutos', 60=>'60 Minutos'];    
-    protected $turnos = ['M'=>'Manhã', 'T'=>'Tarde', 'N'=>'Noite'];
+    protected $turnos = ['M'=>'Manhã', 'T'=>'Tarde', 'N'=>'Noite', 'I'=>'Integral'];
 
     public function initialize()
     {

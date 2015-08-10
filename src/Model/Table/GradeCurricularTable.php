@@ -76,6 +76,7 @@ class GradeCurricularTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
+        $rules->add($rules->isUnique(['disciplina_id', 'turma_id']));
         $rules->add($rules->existsIn(['disciplina_id'], 'Disciplina'));
         $rules->add($rules->existsIn(['professor_id'], 'Professor'));
         $rules->add($rules->existsIn(['turma_id'], 'Turma'));

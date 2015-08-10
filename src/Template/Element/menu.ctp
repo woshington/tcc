@@ -31,6 +31,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Grade <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><?=$this->Html->link(__('Nova'), ['controller'=>'gradeCurricular', 'action' => 'add']) ?></li>            
+            <li><?=$this->Html->link(__('Listar'), ['controller'=>'gradeCurricular', 'action' => 'index']) ?></li>
           </ul>
         </li>
         <li class="dropdown">

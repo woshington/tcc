@@ -22,6 +22,6 @@ class GradeCurricular extends Entity
         'turma_id' => true,
         'disciplina' => true,
         'professor' => true,
-        'curso' => true,
+        'turma' => true,
     ];
 }
