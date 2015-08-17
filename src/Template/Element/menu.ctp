@@ -30,8 +30,14 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Grade <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><?=$this->Html->link(__('Nova'), ['controller'=>'gradeCurricular', 'action' => 'add']) ?></li>            
-            <li><?=$this->Html->link(__('Listar'), ['controller'=>'gradeCurricular', 'action' => 'index']) ?></li>
+            <li><?=$this->Html->link(__('Nova'), ['prefix'=>'admin', 'controller'=>'gradeCurricular', 'action' => 'add']) ?></li>            
+            <li><?=$this->Html->link(__('Listar'), ['prefix'=>'admin', 'controller'=>'gradeCurricular', 'action' => 'index']) ?></li>            
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Horario <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><?=$this->Html->link(__('Listar'), ['prefix'=>'admin','controller'=>'horario', 'action' => 'index']) ?></li>            
           </ul>
         </li>
         <li class="dropdown">

@@ -28,6 +28,7 @@ class GradeCurricularTable extends Table
         $this->table('grade_curricular');
         $this->displayField('id');
         $this->primaryKey('id');
+
         $this->belongsTo('Disciplina', [
             'foreignKey' => 'disciplina_id',
             'joinType' => 'INNER'
@@ -39,6 +40,9 @@ class GradeCurricularTable extends Table
         $this->belongsTo('Turma', [
             'foreignKey' => 'turma_id',
             'joinType' => 'INNER'
+        ]);
+        $this->hasMany('Horario', [
+            'foreignKey' => 'grade_curricular_id'
         ]);
     }
 

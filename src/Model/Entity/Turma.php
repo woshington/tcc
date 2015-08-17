@@ -14,14 +14,6 @@ class Turma extends Entity
      *
      * @var array
      */
-    protected $_accessible = [
-        'nome' => true,
-        'ano' => true,
-        'turno' => true,
-        'ativo' => true,
-        'curso_id' => true,
-        'sala_id' => true,
-        'curso' => true,
-        'sala' => true,
-    ];
+    protected $_accessible = ['*'=>true];
+
 }

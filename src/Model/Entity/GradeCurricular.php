@@ -2,6 +2,7 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\ORM\TableRegistry;
 
 /**
  * GradeCurricular Entity.
@@ -14,14 +15,5 @@ class GradeCurricular extends Entity
      *
      * @var array
      */
-    protected $_accessible = [
-        'carga_horaria' => true,
-        'obrigatorio' => true,
-        'disciplina_id' => true,
-        'professor_id' => true,
-        'turma_id' => true,
-        'disciplina' => true,
-        'professor' => true,
-        'turma' => true,
-    ];
+    protected $_accessible = ['*'=>true];
 }
