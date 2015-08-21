@@ -1,20 +1,19 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\Horario;
+use App\Model\Entity\Aula;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-use Cake\Event\Event;
-use Cake\ORM\Entity;
-use Cake\ORM\TableRegistry;
+
 /**
- * Horario Model
+ * Aula Model
  *
- * @property \Cake\ORM\Association\BelongsTo $GradeCurricular
+ * @property \Cake\ORM\Association\BelongsTo $Disciplina
+ * @property \Cake\ORM\Association\BelongsTo $Calendario
  */
-class HorarioTable extends Table
+class AulaTable extends Table
 {
 
     /**
@@ -25,11 +24,16 @@ class HorarioTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('horario');
+        $this->table('aula');
         $this->displayField('id');
         $this->primaryKey('id');
-        $this->belongsTo('GradeCurricular', [
-            'foreignKey' => 'grade_curricular_id',
+        $this->addBehavior('Timestamp');
+        $this->belongsTo('Disciplina', [
+            'foreignKey' => 'disciplina_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('Calendario', [
+            'foreignKey' => 'calendario_id',
             'joinType' => 'INNER'
         ]);
     }
@@ -47,24 +51,18 @@ class HorarioTable extends Table
             ->allowEmpty('id', 'create');
             
         $validator
-            ->add('dia', 'valid', ['rule' => 'numeric'])
-            ->requirePresence('dia', 'create')
-            ->notEmpty('dia');
+            ->requirePresence('status', 'create')
+            ->notEmpty('status');
+            
+        $validator
+            ->add('data_aula', 'valid', ['rule' => 'date'])
+            ->requirePresence('data_aula', 'create')
+            ->notEmpty('data_aula');
             
         $validator
             ->add('aula', 'valid', ['rule' => 'numeric'])
             ->requirePresence('aula', 'create')
             ->notEmpty('aula');
-            
-        $validator
-            ->add('hora_inicio', 'valid', ['rule' => 'time'])
-            ->requirePresence('hora_inicio', 'create')
-            ->notEmpty('hora_inicio');
-            
-        $validator
-            ->add('hora_termino', 'valid', ['rule' => 'time'])
-            ->requirePresence('hora_termino', 'create')
-            ->notEmpty('hora_termino');
 
         return $validator;
     }
@@ -78,7 +76,8 @@ class HorarioTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['grade_curricular_id'], 'GradeCurricular'));
+        $rules->add($rules->existsIn(['disciplina_id'], 'Disciplina'));
+        $rules->add($rules->existsIn(['calendario_id'], 'Calendario'));
         return $rules;
-    }  
+    }
 }

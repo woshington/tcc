@@ -26,7 +26,11 @@ class DisciplinaTable extends Table
         $this->table('disciplina');
         $this->displayField('nome');
         $this->primaryKey('id');
+
         $this->hasMany('GradeCurricular', [
+            'foreignKey' => 'disciplina_id'
+        ]);
+        $this->hasMany('Aula', [
             'foreignKey' => 'disciplina_id'
         ]);
     }

@@ -39,6 +39,9 @@ class TurmaTable extends Table
         $this->hasMany('GradeCurricular', [
             'foreignKey' => 'turma_id'
         ]);
+        $this->hasMany('Calendario', [
+            'foreignKey' => 'turma_id'
+        ]);
     }
 
     /**
