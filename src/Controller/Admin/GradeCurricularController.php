@@ -173,4 +173,23 @@ class GradeCurricularController extends AppController
             echo false;
         }
     }
+
+    public function turmaSemGrade(){
+        $turmasComGrade = $this->GradeCurricular->find('list', [
+            'keyField'=>'turma.id',
+            'valueField'=>'turma.nome',
+            'contain'=>['Turma'],
+            'conditions'=>[
+                'ativo'=>true,
+            ]
+        ])->toArray();
+        $turma = $this->GradeCurricular->Turma->find()
+            ->contain(['Curso'])
+            ->where([
+                'Turma.ativo'=>true,
+                'Turma.id NOT IN'=>array_keys($turmasComGrade)
+            ]);
+
+        $this->set(compact('turma'));
+    }
 }

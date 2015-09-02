@@ -71,9 +71,9 @@ class AppController extends Controller
 
     public function beforeFilter(Event $event){
         $this->layout = 'bootstrap';
-        
         $this->set('CHs', $this->CHs);
         $this->set('turnos', $this->turnos);
+        $this->set('meses', $this->meses);
         $this->set('usuarioLogado', $this->Auth->user());
         $this->loadModel('Administrador');
         $this->loadModel('Professor');

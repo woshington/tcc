@@ -15,5 +15,4 @@ class Turma extends Entity
      * @var array
      */
     protected $_accessible = ['*'=>true];
-
 }

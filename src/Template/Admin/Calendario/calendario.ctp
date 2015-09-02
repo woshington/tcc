@@ -77,11 +77,6 @@
 					}
 					$dataTime = mktime(0,0,0, $mes, $dia, $ano);
         			$data_dia = getdate($dataTime);
-        			/*if($data_dia['wday']>=1 and $data_dia['wday']<6){
-						echo "<td><button class='btn btn-primary' value='$dia' style='width: 60px;'>".$dia."</button></td>";
-        			}else{
-						echo "<td><button class='btn btn-danger' value='$dia' style='width: 60px;'>".$dia."</button></td>";
-        			}*/
         			if(@$cal_mes[$dia]){
         				echo "<td><button class='btn btn-primary' value='$dia' style='width: 60px;'>".$dia."</button></td>";
         			}elseif(@$cal_mes[$dia]==false){

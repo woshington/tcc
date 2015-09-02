@@ -44,13 +44,14 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Registro <span class="caret"></span></a>
           <ul class="dropdown-menu">
           <li><?=$this->Html->link(__('Calendario'), ['prefix'=>'admin','controller'=>'calendario', 'action' => 'index']) ?></li>
-            <li><?=$this->Html->link(__('Faltas'), ['prefix'=>'admin','controller'=>'aula', 'action' => 'index']) ?></li>
+            <li><?=$this->Html->link(__('Aula'), ['prefix'=>'admin','controller'=>'aula', 'action' => 'index']) ?></li>
           </ul>
         </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Relatórios <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><?=$this->Html->link(__('Turmas sem grade'), ['controller'=>'gradeCurricular', 'action' => 'turmaSemGrade']) ?></li>            
+            <li><?=$this->Html->link(__('Faltas por turma'), ['controller'=>'aula', 'action' => 'faltaTurma']) ?></li>            
           </ul>
         </li>
       </ul>

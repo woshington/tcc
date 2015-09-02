@@ -49,6 +49,8 @@ class HorarioController extends AppController
         $lista = (new Collection($lista))->combine('dia', 'grade_curricular.disciplina_id', 'aula')->toArray();
         $horario = $this->Horario->newEntity();
         if($this->request->is('post')){
+
+            
             $dis = $this->request->data['disciplina_id'];            
             foreach ($dis as $dia=>$aula_disc) {
                 $dia++;
@@ -60,7 +62,10 @@ class HorarioController extends AppController
                             ->first();
                     }
                     $hr = $this->Horario->find()
-                        ->where(['dia'=>$dia, 'aula'=>$aula])->first();
+                        ->contain(['GradeCurricular'=>['Turma']])
+                        ->where(['dia'=>$dia, 'aula'=>$aula, 'Turma.id'=>$turma->id])
+                        ->first();                        
+            
                     if($hr){
                         if($disciplina>0){
                            $hr->grade_curricular_id = $grade->id;
@@ -78,9 +83,9 @@ class HorarioController extends AppController
 
                             $this->Horario->save($horario);
                         }
-                    }
-                    
+                    }                    
                 }                 
+
             }
             $this->redirect(['action'=>'verHorario', $turma->id]);
         }
