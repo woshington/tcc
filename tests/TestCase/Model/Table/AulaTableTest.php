@@ -24,12 +24,13 @@ class AulaTableTest extends TestCase
         'app.usuario',
         'app.administrador',
         'app.eixo',
-        'app.turma',
         'app.curso',
         'app.modalidade',
+        'app.coordenador',
+        'app.turma',
         'app.sala',
-        'app.horario',
-        'app.calendario'
+        'app.calendario',
+        'app.horario'
     ];
 
     /**

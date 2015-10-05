@@ -27,7 +27,6 @@ class AulaFixture extends TestFixture
         'id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
         'status' => ['type' => 'string', 'fixed' => true, 'length' => 1, 'null' => false, 'default' => 'P', 'comment' => '', 'precision' => null],
         'modified' => ['type' => 'date', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
-        'data_aula' => ['type' => 'date', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'aula' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'disciplina_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'calendario_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
@@ -56,8 +55,7 @@ class AulaFixture extends TestFixture
         [
             'id' => 1,
             'status' => 'Lorem ipsum dolor sit ame',
-            'modified' => '2015-08-20',
-            'data_aula' => '2015-08-20',
+            'modified' => '2015-09-23',
             'aula' => 1,
             'disciplina_id' => 1,
             'calendario_id' => 1

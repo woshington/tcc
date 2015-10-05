@@ -1,7 +1,24 @@
+<script type="text/javascript">
+	function escondeBody(turma){	
+		if($('#visivel'+turma).val()=='1'){
+			$('#id'+turma).fadeOut('slow');
+			$('#headReposicao'+turma).fadeOut('slow');
+			$('#bodyReposicao'+turma).fadeOut('slow');		
+			$('#visivel'+turma).val('0');
+		}else{
+			$('#id'+turma).fadeIn('slow');
+			$('#headReposicao'+turma).fadeIn('slow');
+			$('#bodyReposicao'+turma).fadeIn('slow');		
+			$('#visivel'+turma).val('1');
+		}
+		
+	}
+</script>
 <?php foreach ($turmas as $key=>$turma): ?>
 	<div class="panel panel-default">
-	  <div class="panel-heading">Turma: <?=$turma?></div>
-	  <div class="panel-body">
+	  <input type="hidden" id="visivel<?=$key?>" value="1">
+	  <div class="panel-heading" onclick="escondeBody(<?=$key?>)">Turma: <?=$turma->nome?></div>
+	  <div class="panel-body" id="id<?=$key?>">
 		<table class="table">
 			<thead>
 				<tr>
@@ -12,31 +29,50 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach (@$horarios[$key] as $horario): ?>
+				<?php foreach (@$turma->aulasDia as $aula): ?>
 					<?php 
 						$classe = '';
-						if(isset($aulasRegistradas[$key][$horario->aula])){
-							$classe = $aulasRegistradas[$key][$horario->aula]=='M' ? 'success' : 'danger';
-						}
+						if($aula['status']!='P')
+						$classe = $aula['status']=='M' ? 'success' : 'danger';
 					?>
 					<tr class="<?=$classe?>">
-						<td><?=$horario->aula?></td>
-						<td><?=$horario->grade_curricular->disciplina->nome?></td>
-						<td><?=$horario->grade_curricular->professor->usuarios->nome?></td>		
+						<td><?=$aula['aula']?></td>
+						<td><?=$aula['disciplina']?></td>
+						<td><?=$aula['professor']?></td>		
 						<td>
 						<?php 
-						echo $this->Form->postLink(__('Faltou'),['action' => 'confirmar', $horario->id, true], ['confirm'=>'Deseja aplicar essa falta?', 'class'=>'btn btn-danger']);
+						echo $this->Form->postLink(__('Faltou'),['action' => 'confirmar', $aula['id'], true], ['confirm'=>'Deseja aplicar essa falta?', 'class'=>'btn btn-danger']);
 						?>
 						<?php 
-						echo $this->Form->postLink(__('Ministrou'),['action' => 'confirmar', $horario->id], ['confirm'=>'Confirmar presença?', 'class'=>'btn btn-success']);
+						echo $this->Form->postLink(__('Ministrou'),['action' => 'confirmar', $aula['id']], ['confirm'=>'Confirmar presença?', 'class'=>'btn btn-success']);
 						?>
 						</td>
 					</tr>					
-				<?php endforeach ?>
+				<?php endforeach ?>				
 				<tr>			
 				</tr>
 			</tbody>
 		</table>
+	  </div>
+	  <div class="panel-heading" id="headReposicao<?=$key?>">Reposições marcadas</div>
+	  <div class="panel-body" id="bodyReposicao<?=$key?>">
+	  	<table class="table">
+	  		<?php foreach ($turma->reposicoes as $reposicao): ?>
+	  			<tr>
+	  				<td><?=$reposicao['aula_repor']?></td>
+	  				<td><?=$reposicao['disciplina']?></td>
+	  				<td><?=$reposicao['professor']?></td>
+	  				<td>
+						<?php 
+						echo $this->Form->postLink(__('Faltou'),['action' => 'confirmarReposicao', $reposicao['id'], true], ['confirm'=>'Deseja aplicar essa falta?', 'class'=>'btn btn-danger']);
+						?>
+						<?php 
+							echo $this->Form->postLink(__('Ministrou'),['action' => 'confirmarReposicao', $reposicao['id']], ['confirm'=>'Deseja aplicar essa falta?', 'class'=>'btn btn-success']);
+						?>
+					</td>
+	  			</tr>
+	  		<?php endforeach ?>	  		
+	  	</table>
 	  </div>
   	</div>
 <?php endforeach ?>

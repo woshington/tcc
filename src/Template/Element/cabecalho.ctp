@@ -10,6 +10,15 @@
       </button>
       <a class="navbar-brand" href="#">TCC</a>
     </div>    
-    <?=$this->element('menu');?>
+    <?php 
+      if($usuarioLogado['coordenador']){
+          echo $this->element('menuCoordenador');
+      }elseif($usuarioLogado['professor']){
+        echo $this->element('menuProfessor');
+      }else{
+        echo $this->element('menu');
+      }
+    ?>    
+    
   </div><!-- /.container-fluid -->
 </nav>

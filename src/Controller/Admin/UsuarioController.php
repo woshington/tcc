@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 use App\Controller\AppController;
 
 
+
 /**
  * Usuario Controller
  *
@@ -11,6 +12,7 @@ use App\Controller\AppController;
  */
 class UsuarioController extends AppController
 {
+
 
     public function index(){
         $this->paginate = [

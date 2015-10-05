@@ -29,6 +29,7 @@ class ModalidadeTable extends Table
         $this->hasMany('Curso', [
             'foreignKey' => 'modalidade_id'
         ]);
+        $this->hasMany('Coordenador');
     }
 
     /**

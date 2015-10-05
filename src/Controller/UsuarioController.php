@@ -23,6 +23,7 @@ class UsuarioController extends AppController
         parent::beforeFilter($event);
         $this->loadModel('Administrador');
         $this->loadModel('Professor');
+        $this->Auth->allow('login');
     }
 
     /**
@@ -59,21 +60,6 @@ class UsuarioController extends AppController
      *
      * @return void Redirects on successful add, renders view otherwise.
      */
-    public function add()
-    {
-        $usuario = $this->Usuario->newEntity();
-        if ($this->request->is('post')) {
-            $usuario = $this->Usuario->patchEntity($usuario, $this->request->data);
-            if ($this->Usuario->save($usuario)) {
-                $this->Flash->success(__('The usuario has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The usuario could not be saved. Please, try again.'));
-            }
-        }
-        $this->set(compact('usuario'));
-        $this->set('_serialize', ['usuario']);
-    }
 
     /**
      * Edit method
@@ -116,7 +102,7 @@ class UsuarioController extends AppController
                     }
                     
                 }else{
-                    return $this->redirect(['prefix'=>'admin', 'controller'=>'index']);
+                    return $this->redirect(['prefix'=>'admin', 'controller'=>'aula']);
                 }
                 
             }

@@ -36,6 +36,7 @@ class ProfessorTable extends Table
             'foreignKey' => 'eixo_id',
             'joinType' => 'INNER'
         ]);
+        $this->hasOne('Coordenador');
         $this->hasMany('GradeCurricular', [
             'foreignKey' => 'professor_id'
         ]);
@@ -54,9 +55,8 @@ class ProfessorTable extends Table
             ->allowEmpty('id', 'create');
             
         $validator
-            ->add('coordenador', 'valid', ['rule' => 'boolean'])
-            ->requirePresence('coordenador', 'create')
-            ->notEmpty('coordenador');
+            ->requirePresence('qualificacao', 'create')
+            ->notEmpty('qualificacao');
 
         return $validator;
     }

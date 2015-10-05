@@ -8,8 +8,8 @@
     </title>
     <?= $this->Html->meta('icon') ?>
 
-    <?= $this->Html->script('jquery.min') ?>
-    <?= $this->Html->css('bootstrap/bootstrap.min') ?>
+    <?= $this->Html->script(['jquery.min','datepicker/bootstrap-datepicker','chart.min']) ?>
+    <?= $this->Html->css(['bootstrap/bootstrap.min', 'datepicker/datepicker']) ?>
     <?= $this->Html->css('customize') ?>
 
     

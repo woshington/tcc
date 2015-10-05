@@ -4,6 +4,7 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
 
+
 /**
  * Aula Entity.
  */
@@ -16,10 +17,15 @@ class Aula extends Entity
      * @var array
      */
     protected $_accessible = [
-        '*'=>true,
+        'status' => true,
+        'aula' => true,
+        'disciplina_id' => true,
+        'calendario_id' => true,
+        'disciplina' => true,
+        'calendario' => true,
     ];
 
-    protected function _getGradeCurricular(){
+     protected function _getGradeCurricular(){
         $calendario = TableRegistry::get('Calendario');
         $grade = TableRegistry::get('GradeCurricular');
         $cal = $calendario->get($this->calendario_id);            

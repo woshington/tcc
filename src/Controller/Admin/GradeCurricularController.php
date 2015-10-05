@@ -17,7 +17,6 @@ class GradeCurricularController extends AppController
     {        
         $this->loadModel('Turma');
         $this->paginate = [
-            'conditions'=>['ativo'=>true],
             'contain'=>['Curso']
 
         ];

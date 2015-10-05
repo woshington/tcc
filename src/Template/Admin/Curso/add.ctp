@@ -12,6 +12,9 @@
         <?=$this->Form->input('modalidade_id', ['options'=>$modalidade, 'div'=>false, 'class'=>'form-control']);?>
     </div>
     <div class="form-group">
+        <?=$this->Form->input('eixo_id', ['options'=>$eixo, 'div'=>false, 'class'=>'form-control']);?>
+    </div>
+    <div class="form-group">
       <button type="submit" class="btn btn-default">Salvar</button>    
     </div>
     <?= $this->Form->end() ?>    

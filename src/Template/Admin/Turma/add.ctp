@@ -18,9 +18,6 @@
         <?=$this->Form->input('sala_id', ['options'=>$sala, 'div'=>false, 'class'=>'form-control']);?>
     </div>
     <div class="form-group">
-        <?=$this->Form->input('ativo', ['div'=>false, 'class'=>'form-control']);?>
-    </div>
-    <div class="form-group">
       <button type="submit" class="btn btn-default">Salvar</button>    
     </div>
     <?= $this->Form->end() ?>

@@ -15,7 +15,10 @@ class Administrador extends Entity
      *
      * @var array
      */
-    protected $_accessible = ['*'=>true];
+    protected $_accessible = [
+        '*'=>true,
+        'senha'=>false
+    ];
 
     protected function _getUsuarios()
     {

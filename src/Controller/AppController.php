@@ -43,6 +43,13 @@ class AppController extends Controller
         9=>'Setembro', 10=>'Outubro', 11=>'Novembro', 12=>'Dezembro',
     ];
 
+    protected $statusReposicao = [
+        'A'=>'Aprovada', 
+        'C'=>'Criada', 
+        'R'=>'Rejeitada',
+        'M'=>'Ministrada'
+    ];
+
     public function initialize()
     {
         parent::initialize();
@@ -74,9 +81,21 @@ class AppController extends Controller
         $this->set('CHs', $this->CHs);
         $this->set('turnos', $this->turnos);
         $this->set('meses', $this->meses);
-        $this->set('usuarioLogado', $this->Auth->user());
+        $this->set('statusReposicao', $this->statusReposicao);
         $this->loadModel('Administrador');
         $this->loadModel('Professor');
+        $this->loadModel('Usuario');
+        $usuarioLogado = $this->Auth->user();
+        $user = $this->Usuario->find()
+            ->where(['Usuario.id'=>$usuarioLogado['id']])
+            ->contain(['Professor'=>['Coordenador'], 'Administrador'])
+            ->first();
+        if(isset($usuarioLogado)){
+            $usuarioLogado['coordenador'] = @$user->professor->coordenador;
+            $usuarioLogado['professor'] = (bool) $user->professor;
+        }        
+        $this->set('usuarioLogado', $usuarioLogado);       
+        
     }
 
     public function isAuthorized($user = null)
@@ -85,21 +104,20 @@ class AppController extends Controller
             'conditions'=>['usuario_id'=>$user['id']]
         ])->first();
         $professor = $this->Professor->find('all', [
+            'contain'=>['Coordenador'],
             'conditions'=>['usuario_id'=>$user['id']]
         ])->first();
-
         if (empty($this->request->params['prefix'])) {
             return true;
         }
-
+        if ($this->request->params['prefix'] === 'coordenador') {
+            return (bool)(@$professor->coordenador->modalidade_id);
+        }  
         // Only admins can access admin functions
         
         if ($this->request->params['prefix'] === 'admin') {
             return (bool)($admin);
-        }
-        if ($this->request->params['prefix'] === 'coordenador') {
-            return $professor->coordenador;
-        }
+        }        
         return false;
     }
 }

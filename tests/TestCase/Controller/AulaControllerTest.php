@@ -27,8 +27,8 @@ class AulaControllerTest extends IntegrationTestCase
         'app.curso',
         'app.modalidade',
         'app.sala',
-        'app.horario',
-        'app.calendario'
+        'app.calendario',
+        'app.horario'
     ];
 
     /**

@@ -11,52 +11,11 @@ use App\Controller\AppController;
 class AulaController extends AppController{    
 
 	public function index(){
-		$this->loadModel('Calendario');
-		$this->loadModel('Horario');
 		$this->loadModel('Turma');
-
-		$turmas = $this->Calendario->find('list', [
-			'keyField'=>'turma.id',
-			'valueField'=>'turma.nome',			
-			'contain'=>['Turma'],
-			'conditions'=>[
-				'Calendario.data'=>date('Y-m-d'),
-				'Calendario.letivo'=>true,
-				'Turma.ativo'=>true,
-			]
-		])->toArray();
+		$turmas = $this->Turma->find()
+			->where(['Turma.ativo'=>true]);		
 		
-		$dataTime = mktime(0,0,0, date('m'), date('d'), date('Y'));		
-		$data_dia = getdate($dataTime);
-		$horarios = array();
-
-		
-		$aulas = [];
-		foreach ($turmas as $key => $turma) {
-			$horarios[$key] = $this->Horario->find()
-				->where([
-					'dia'=>$data_dia['wday'],
-					'Turma.id'=>$key
-				])
-				->contain([
-					'GradeCurricular'=>['Turma', 'Disciplina', 'Professor']
-				])
-				->order(['Turma.turno', 'Horario.aula']);			
-		}
-		$aulas = $this->Aula->find()
-			->contain(['Calendario'=>['Turma']])
-			->where([
-				'Turma.ativo'=>true,
-				'Calendario.data'=>date('Y-m-d'),
-				'Calendario.letivo'=>true
-			])->toArray();
-			
-		$aulasRegistradas = [];
-
-		foreach ($aulas as $aula) {
-			$aulasRegistradas[$aula->calendario->turma->id][$aula->aula] = $aula->status;
-		}
-		$this->set(compact('horarios', 'turmas', 'aulasRegistradas'));
+		$this->set(compact('horarios', 'turmas', 'aulasRegistradas', 'data', 'reposicoes'));
     }
     public function confirmar($horario_id, $faltou = false){
     	$this->loadModel('Horario');

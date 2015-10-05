@@ -59,7 +59,8 @@ class CursoController extends AppController
             }
         }
         $modalidade = $this->Curso->Modalidade->find('list', ['limit' => 200]);
-        $this->set(compact('curso', 'modalidade'));
+        $eixo = $this->Curso->Eixo->find('list', ['limit' => 200]);
+        $this->set(compact('curso', 'modalidade', 'eixo'));
         $this->set('_serialize', ['curso']);
     }
 
@@ -85,7 +86,8 @@ class CursoController extends AppController
             }
         }
         $modalidade = $this->Curso->Modalidade->find('list', ['limit' => 200]);
-        $this->set(compact('curso', 'modalidade'));
+        $eixo = $this->Curso->Eixo->find('list', ['limit' => 200]);
+        $this->set(compact('curso', 'modalidade', 'eixo'));
         $this->set('_serialize', ['curso']);
     }
 }

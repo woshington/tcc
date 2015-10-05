@@ -21,7 +21,7 @@ class AdministradorController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow('add');
+        //$this->Auth->allow('add');
     }
 
     public function index()
@@ -61,7 +61,8 @@ class AdministradorController extends AppController
             $administrador = $this->Administrador->patchEntity($administrador, $this->request->data, [
                 'associated'=>'Usuario'                
             ]);
-
+            $administrador->usuario->senha = $administrador->usuario->matricula;
+            $administrador->usuario->ativo = true;
             if ($this->Administrador->save($administrador)) {
                 $this->Flash->success(__('The administrador has been saved.'));
                 return $this->redirect(['action' => 'index']);

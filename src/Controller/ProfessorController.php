@@ -74,4 +74,15 @@ class ProfessorController extends AppController
         $this->set(compact('professor', 'usuario', 'eixo'));
         $this->set('_serialize', ['professor']);
     }
+
+    public function minhasDisciplinas(){
+        $this->loadModel('GradeCurricular');
+        $disciplinas = $this->GradeCurricular->find()
+            ->where([
+                'Turma.ativo'=>true,
+                'Professor.usuario_id'=>$this->Auth->user('id')
+            ])
+            ->contain(['Turma', 'Professor', 'Disciplina']);
+        $this->set(compact('disciplinas'));
+    }
 }

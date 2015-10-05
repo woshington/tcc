@@ -30,7 +30,6 @@ class TurmaController extends AppController
     {
         $this->paginate = [
             'contain' => ['Curso', 'Sala'],
-            'conditions'=>['ativo'=>true]
         ];
         $this->set('turma', $this->paginate($this->Turma));
         $this->set('_serialize', ['turma']);
@@ -62,6 +61,7 @@ class TurmaController extends AppController
         $turma = $this->Turma->newEntity();
         if ($this->request->is('post')) {
             $turma = $this->Turma->patchEntity($turma, $this->request->data);
+            $turma->ativo = false;
             if ($this->Turma->save($turma)) {
                 $this->Flash->success(__('The turma has been saved.'));
                 return $this->redirect(['action' => 'index']);
@@ -115,6 +115,17 @@ class TurmaController extends AppController
     public function getTurmas($curso_id=null){
         $this->layout = 'ajax';
         $this->autoRender = FALSE;
-        echo json_encode($this->Turma->findByCursoIdAndAtivo($curso_id, true)->toArray());
+        echo json_encode($this->Turma->findByCursoIdAndAtivo($curso_id, false)->toArray());
+    }
+
+    public function ativar($id = null, $ativo = true){
+        $this->request->allowMethod(['post', 'ativar']);
+
+        $turma = $this->Turma->get($id);
+        $turma->ativo = $ativo;
+        if ($this->Turma->save($turma)) {
+            $this->Flash->success(__('Turma atualizada com sucesso!'));
+            return $this->redirect(['action' => 'index']);
+        }
     }
 }

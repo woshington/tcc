@@ -29,6 +29,9 @@ class EixoTable extends Table
         $this->hasMany('Professor', [
             'foreignKey' => 'eixo_id'
         ]);
+        $this->hasMany('Curso', [
+            'foreignKey' => 'eixo_id'
+        ]);
     }
 
     /**

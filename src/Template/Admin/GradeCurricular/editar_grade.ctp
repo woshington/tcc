@@ -78,7 +78,7 @@
             $.each(grade, function(i, item){
                 var obrigatorio = item.obrigatorio ? 'SIM' : 'NAO';
                 
-                var linkRemove = "<a href = '#' class='btn btn-primary' onClick=remove(this, "+item.id+");><span class='glyphicon glyphicon-remove'> Excluir</span></a>";
+                var linkRemove = "<a href = '#' class='btn btn-danger' onClick=remove(this, "+item.id+");><span class='glyphicon glyphicon-remove'> Excluir</span></a>";
                 var linkEditar = "<a href = '#' class='btn btn-primary' onClick=editar("+item.id+");><span class='glyphicon glyphicon-edit'> Editar</span></a>";
                    
                 gradeTurma.append('<tr><td>'+item.disciplina+'</td><td>'+item.carga_horaria+'</td><td>'+item.professor+'</td><td>'+obrigatorio+'</td><td>'+linkRemove+" "+linkEditar+'</td></tr>');
@@ -116,7 +116,7 @@
                     <?=$gradeCurricular->obrigatorio ? 'SIM' : 'NAO' ?>
                 </td>
                 <td>
-                    <a href="#" class="btn btn-primary" onclick="excluir(this, <?=$gradeCurricular->id?>);">
+                    <a href="#" class="btn btn-danger" onclick="excluir(this, <?=$gradeCurricular->id?>);">
                         <span class="glyphicon glyphicon-remove"> Excluir</span> 
                     </a>
                     <a href="#" class="btn btn-primary" onclick="editar(<?=$gradeCurricular->id?>);">
@@ -127,7 +127,7 @@
         <?php endforeach; ?>
         </tbody>        
     </table>
-    <a href="#" class="btn btn-primary" id="btnNewDisciplina">
+    <a href="#" class="btn btn-success" id="btnNewDisciplina">
         <span class="glyphicon glyphicon-plus"> Disciplina</span> 
     </a>    
   </div>

@@ -9,16 +9,10 @@
         <?=$this->Form->input('usuario.email', ['div'=>false, 'class'=>'form-control']);?>
     </div>
     <div class="form-group">
-        <?=$this->Form->password('usuario.senha', ['div'=>false, 'class'=>'form-control']);?>
-    </div>
-    <div class="form-group">
         <?=$this->Form->input('usuario.matricula', ['div'=>false, 'class'=>'form-control']);?>
     </div>
     <div class="form-group">
-        <?=$this->Form->input('usuario.ativo', ['div'=>false, 'class'=>'form-control']);?>
-    </div>
-    <div class="form-group">
-        <?=$this->Form->input('coordenador', ['div'=>false, 'class'=>'form-control']);?>
+        <?=$this->Form->input('qualificacao', ['div'=>false, 'class'=>'form-control']);?>
     </div>
     <div class="form-group">
         <?=$this->Form->input('eixo_id', ['options'=>$eixo, 'div'=>false, 'class'=>'form-control']);?>

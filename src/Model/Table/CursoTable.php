@@ -31,9 +31,12 @@ class CursoTable extends Table
             'foreignKey' => 'modalidade_id',
             'joinType' => 'INNER'
         ]);
+        $this->belongsTo('Eixo', [
+            'foreignKey' => 'eixo_id'
+        ]);
         $this->hasMany('Turma', [
             'foreignKey' => 'curso_id'
-        ]);
+        ]);        
     }
 
     /**

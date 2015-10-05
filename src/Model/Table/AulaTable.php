@@ -12,6 +12,7 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\BelongsTo $Disciplina
  * @property \Cake\ORM\Association\BelongsTo $Calendario
+ * @property \Cake\ORM\Association\BelongsToMany $ReposicaoAntecipacao
  */
 class AulaTable extends Table
 {
@@ -36,6 +37,7 @@ class AulaTable extends Table
             'foreignKey' => 'calendario_id',
             'joinType' => 'INNER'
         ]);
+        $this->hasMany('AulaReposicaoAntecipacao');
     }
 
     /**
@@ -53,11 +55,6 @@ class AulaTable extends Table
         $validator
             ->requirePresence('status', 'create')
             ->notEmpty('status');
-            
-        $validator
-            ->add('data_aula', 'valid', ['rule' => 'date'])
-            ->requirePresence('data_aula', 'create')
-            ->notEmpty('data_aula');
             
         $validator
             ->add('aula', 'valid', ['rule' => 'numeric'])

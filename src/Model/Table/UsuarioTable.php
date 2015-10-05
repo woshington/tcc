@@ -27,10 +27,10 @@ class UsuarioTable extends Table
         $this->table('usuario');
         $this->displayField('nome');
         $this->primaryKey('id');
-        $this->hasMany('Administrador', [
+        $this->hasOne('Administrador', [
             'foreignKey' => 'usuario_id'
         ]);
-        $this->hasMany('Professor', [
+        $this->hasOne('Professor', [
             'foreignKey' => 'usuario_id'
         ]);
     }
@@ -90,6 +90,7 @@ class UsuarioTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->isUnique(['email']));
+        $rules->add($rules->isUnique(['matricula']));
         return $rules;
     }
 }

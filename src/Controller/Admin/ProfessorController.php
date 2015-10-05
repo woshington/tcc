@@ -52,7 +52,9 @@ class ProfessorController extends AppController
         if ($this->request->is('post')) {
             $professor = $this->Professor->patchEntity($professor, $this->request->data, [
                 'associated'=>'Usuario'
-            ]);            
+            ]);           
+            $professor->usuario->ativo = true; 
+            $professor->usuario->senha = $professor->usuario->matricula;
             if ($this->Professor->save($professor)) {
                 $this->Flash->success(__('The professor has been saved.'));
                 return $this->redirect(['action' => 'index']);
@@ -93,5 +95,11 @@ class ProfessorController extends AppController
         $eixo = $this->Professor->Eixo->find('list', ['limit' => 200]);
         $this->set(compact('professor', 'usuario', 'eixo'));
         $this->set('_serialize', ['professor']);
+    }
+
+    public function getProfessores($eixo_id=null){
+        $this->layout = 'ajax';
+        $this->autoRender = FALSE;
+        echo json_encode($this->Professor->find()->contain(['Usuario'])->where(['eixo_id'=>$eixo_id])->toArray());
     }
 }

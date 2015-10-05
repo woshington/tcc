@@ -11,7 +11,8 @@
             <li><?= $this->Html->link(__('Eixos'), ['prefix'=>'admin', 'controller'=>'eixo', 'action' => 'index']) ?></li>
             <li><?= $this->Html->link(__('Disciplinas'), ['prefix'=>'admin', 'controller'=>'disciplina', 'action' => 'index']) ?></li>
             <li role="separator" class="divider"></li>
-            <li><?= $this->Html->link(__('Usuarios'), ['prefix'=>'admin', 'controller'=>'usuario', 'action' => 'index']) ?></li>            
+            <li><?= $this->Html->link(__('Coordenador'), ['prefix'=>'admin', 'controller'=>'coordenador', 'action' => 'index']) ?></li>
+            <li><?= $this->Html->link(__('Professor'), ['prefix'=>'admin', 'controller'=>'professor', 'action' => 'index']) ?></li>
           </ul>
         </li>
         <li class="dropdown">
@@ -24,7 +25,9 @@
             <li><?= $this->Html->link(__('Eixos'), ['prefix'=>'admin', 'controller'=>'eixo', 'action' => 'add']) ?></li>
             <li><?= $this->Html->link(__('Disciplinas'), ['prefix'=>'admin', 'controller'=>'disciplina', 'action' => 'add']) ?></li>
             <li role="separator" class="divider"></li>
-            <li><?= $this->Html->link(__('Usuarios'), ['prefix'=>false, 'controller'=>'usuario', 'action' => 'add']) ?></li>            
+            <li><?= $this->Html->link(__('Coordenador'), ['prefix'=>'admin', 'controller'=>'coordenador', 'action' => 'add']) ?></li>
+            <li><?= $this->Html->link(__('Professor'), ['prefix'=>'admin', 'controller'=>'professor', 'action' => 'add']) ?></li>
+
           </ul>
         </li>
         <li class="dropdown">
@@ -61,7 +64,7 @@
           <ul class="dropdown-menu">
             <li>
               <?=$this->Html->link('Meu perfil', ['prefix'=>false, 'controller'=>'usuario', 'action'=>'view'])?>
-            </li>
+            </li>            
             <li role="separator" class="divider"></li>
             <li><?= $this->Html->link(__('Sair'), ['prefix'=>false, 'controller'=>'usuario', 'action' => 'logout']) ?></li>            
           </ul>
