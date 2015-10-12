@@ -18,10 +18,15 @@ class ProfessorController extends AppController
      */
     public function index()
     {
+        $this->loadModel('Coordenador');
         $this->paginate = [
             'contain' => ['Usuario', 'Eixo']
         ];
+        $coordenadores = $this->Coordenador->find('list', [
+            'keyField'=>['professor_id'],            
+        ])->toArray();
         $this->set('professor', $this->paginate($this->Professor));
+        $this->set('coordenadores', $coordenadores);
         $this->set('_serialize', ['professor']);
     }
 

@@ -71,4 +71,15 @@ class ReposicaoAntecipacaoController extends AppController
         $this->set(compact('usuario', 'reposicaoAntecipacao'));
         $this->set('_serialize', ['reposicaoAntecipacao']);
     }
+    public function json(){
+        $this->layout = 'ajax';
+        $this->loadModel('Turma');
+        echo json_encode($this->Turma->find()->toArray());
+    }
+    public function solicitarAntecipacao(){
+        $this->loadModel('Turma');
+        $usuario = $this->Usuario->get($this->Auth->user('id'), ['contain'=>'Professor']);
+        $turma = $usuario->professor->turmas;
+        $this->set(compact('turma'));
+    }
 }

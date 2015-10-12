@@ -26,9 +26,18 @@ class ReposicaoAntecipacaoController extends AppController
     }        
 
     public function view($id){
-        $reposicaoAntecipacao = $this->ReposicaoAntecipacao->get($id);
+        $reposicaoAntecipacao = $this->ReposicaoAntecipacao->get($id, [
+            'contain'=>[
+                'AulaReposicaoAntecipacao'=>[
+                    'Aula'=>[
+                        'Calendario'=>[
+                            'Turma'=>['Curso']
+                        ]
+                    ]
+                ]
+            ]
+        ]);
         if($this->request->is(['post', 'put'])){
-            //$reposicaoAntecipacao = $this->ReposicaoAntecipacao->get($id);
             $reposicaoAntecipacao = $this->ReposicaoAntecipacao->patchEntity($reposicaoAntecipacao, $this->request->data);
             if ($this->ReposicaoAntecipacao->save($reposicaoAntecipacao)) {
                 $this->Flash->success('Reposição atualizada com sucesso.');

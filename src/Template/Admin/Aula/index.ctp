@@ -58,7 +58,12 @@
 	  <div class="panel-body" id="bodyReposicao<?=$key?>">
 	  	<table class="table">
 	  		<?php foreach ($turma->reposicoes as $reposicao): ?>
-	  			<tr>
+	  			<?php 
+						$classe = '';
+						if($reposicao['status']!='C')
+							$classe = $reposicao['status']=='M' ? 'success' : 'danger';
+					?>
+	  			<tr class="<?=$classe?>">
 	  				<td><?=$reposicao['aula_repor']?></td>
 	  				<td><?=$reposicao['disciplina']?></td>
 	  				<td><?=$reposicao['professor']?></td>

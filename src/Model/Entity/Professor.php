@@ -58,4 +58,15 @@ class Professor extends Entity
             
         return $connection->execute($sql)->fetchAll('assoc');
     }
+
+    public function _getTurmas(){
+        $grade = TableRegistry::get('GradeCurricular');
+        return $grade->find('list', [
+                'keyField'=>'turma.id',
+                'valueField'=>'turma.nome',                
+            ])            
+            ->where(['professor_id'=>$this->id, 'Turma.ativo'=>true])
+            ->contain(['Turma'])
+            ->toArray();
+    }
 }

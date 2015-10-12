@@ -82,7 +82,7 @@ class ProfessorController extends AppController
                 'Turma.ativo'=>true,
                 'Professor.usuario_id'=>$this->Auth->user('id')
             ])
-            ->contain(['Turma', 'Professor', 'Disciplina']);
+            ->contain(['Turma'=>['Curso'=>['Modalidade']], 'Professor', 'Disciplina']);
         $this->set(compact('disciplinas'));
     }
 }

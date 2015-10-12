@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR" ng-app>
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,8 @@
     </title>
     <?= $this->Html->meta('icon') ?>
 
-    <?= $this->Html->script(['jquery.min','datepicker/bootstrap-datepicker','chart.min']) ?>
+    <?= $this->Html->script(['jquery.min','datepicker/bootstrap-datepicker','chart.min', 'bootstrap3-typeahead.min', 'angular-1.0.1.min']) ?>
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>-->
     <?= $this->Html->css(['bootstrap/bootstrap.min', 'datepicker/datepicker']) ?>
     <?= $this->Html->css('customize') ?>
 

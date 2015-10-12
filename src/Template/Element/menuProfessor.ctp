@@ -14,7 +14,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Solicitar <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><?= $this->Html->link(__('Reposição'), ['prefix'=>false, 'controller'=>'ReposicaoAntecipacao', 'action' => 'solicitarReposicao']) ?></li>            
-            <li><?= $this->Html->link(__('Antecipação'), ['prefix'=>'coordenador', 'controller'=>'professor', 'action' => 'add']) ?></li>            
+            <li><?= $this->Html->link(__('Antecipação'), ['prefix'=>false, 'controller'=>'ReposicaoAntecipacao', 'action' => 'solicitarAntecipacao']) ?></li>            
           </ul>
         </li>
         <li class="dropdown">

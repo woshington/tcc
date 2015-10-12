@@ -13,7 +13,8 @@
     <tbody>
     <?php foreach ($professor as $professor): ?>
         <tr>
-            <td><?= h($professor->coordenador ? 'SIM' : "NãO") ?></td>
+            
+            <td><?= h(isset($coordenadores[$professor->id]) ? 'SIM' : "NãO") ?></td>
             <td>
                 <?= $professor->has('usuario') ? $professor->usuario->nome : '' ?>
             </td>

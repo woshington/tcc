@@ -77,4 +77,17 @@ class AulaController extends AppController{
 
     	$this->set(compact(['faltas', 'turma']));
     }
+
+    public function confirmarReposicao($reposicaoId, $faltou = false){
+        $this->loadModel('AulaReposicaoAntecipacao');
+
+        $aulaReposicao = $this->AulaReposicaoAntecipacao->get($reposicaoId);
+        $aulaReposicao->status = $faltou==true ? 'F' : 'M';
+        if($this->AulaReposicaoAntecipacao->save($aulaReposicao)){
+            $this->Flash->success(__('Aula registrada com sucesso.'));          
+        }else{
+            $this->Flash->error(__('Aula nao registrada. Please, try again.'));
+        }
+        return $this->redirect(['action'=>'index']);
+    }
 }

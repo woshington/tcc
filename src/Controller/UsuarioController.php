@@ -98,7 +98,7 @@ class UsuarioController extends AppController
                     if ($professor->coordenador){
                         return $this->redirect(['prefix'=>'coordenador', 'controller'=>'professor']);
                     }else{
-                        return $this->redirect(['prefix'=>false, 'controller'=>'index']);
+                        return $this->redirect(['prefix'=>false, 'controller'=>'professor', 'action'=>'minhasDisciplinas']);
                     }
                     
                 }else{
