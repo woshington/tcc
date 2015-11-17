@@ -34,7 +34,7 @@ class Turma extends Entity
                 aula_reposicao_antecipacao as ara on a.id = ara.aula_id inner join
                 reposicao_antecipacao as ra on ara.reposicao_antecipacao_id = ra.id
                 WHERE (t.id = ".$this->id.") and (ra.dataReposicao = '".date('Y-m-d')."') 
-                AND (coalesce(ra.status,'')<>'C')";
+                AND (coalesce(ra.status,'')<>'RC')";
         return $connection->execute($sql)->fetchall('assoc');
     }
 

@@ -6,7 +6,7 @@
     });
 
     function exibirGrafico(aulas, ministradas){
-        var options = [];
+        options = [];    
         var data = [
             {
                 value: (aulas-ministradas),
@@ -66,11 +66,18 @@
         };            
     
         var ctx = $("#myChartRadar").get(0).getContext("2d");
+        ctx.canvas.width = 500;
+        ctx.canvas.height = 500;
         var RadarChart = new Chart(ctx).Radar(data, options);
 
         $('#modalGraficoRadar').modal('show');
     }
 </script>
+<style type="text/css">
+    #canvas-holder {
+        width: 100%;
+    }
+</style>
 <div class="panel panel-default">
   <div class="panel-heading">Minhas disciplinas</div>
   <div class="panel-body">
@@ -127,14 +134,14 @@
     </div>
 </div>
 <div class="modal fade" id="modalGraficoRadar" tabindex="-1" role="dialog" aria-labelledby="Modal Grafico">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
+  <div class="modal-dialog" role="document" >
+    <div class="modal-content" style="height: 600px; width:600px;">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="modalDisciplinasLabel">Minhas Disciplinas</h4>
         </div>
         <div class="modal-body">
-             <div style="width:800px;" class="chartDiv">
+             <div id="canvas-holder">
                 <canvas id="myChartRadar"></canvas>
               </div>
         </div>

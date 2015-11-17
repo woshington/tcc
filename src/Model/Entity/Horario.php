@@ -22,4 +22,6 @@ class Horario extends Entity
         'grade_curricular_id' => true,
         'grade_curricular' => true,
     ];
+
+    
 }

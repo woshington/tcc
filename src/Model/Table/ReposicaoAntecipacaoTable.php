@@ -2,11 +2,12 @@
 namespace App\Model\Table;
 
 use App\Model\Entity\ReposicaoAntecipacao;
+use App\Model\Entity\Calendario;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-
+use Cake\Datasource\ConnectionManager;
 /**
  * ReposicaoAntecipacao Model
  *
@@ -53,5 +54,35 @@ class ReposicaoAntecipacaoTable extends Table
             ->notEmpty('dataReposicao');
 
         return $validator;
+    }
+
+    public function saveAntecipacao(ReposicaoAntecipacao $reposicao, array $antecipacoes, Calendario $cal){        
+        $aulas = $this->AulaReposicaoAntecipacao->Aula->find()
+            ->where([
+                'calendario_id'=>$cal->id,
+                'aula IN '=>$antecipacoes
+            ]);
+        $tudoCerto = true;
+//        $this->connection()->transactional(function () use ($reposicao, $aulas, $tudoCerto) {
+        $conn = ConnectionManager::get('default');
+        $conn->begin();
+        $this->save($reposicao);
+        foreach ($aulas as $aula) {
+            $aulaReposicaoAntecipacao = $this->AulaReposicaoAntecipacao->newEntity([
+                'aula_repor'=>$aula->aula,
+                'reposicao_antecipacao_id'=>$reposicao->id,
+                'aula_id'=>$aula->id,
+                'status'=>'C'
+            ]);
+            if(!$this->AulaReposicaoAntecipacao->save($aulaReposicaoAntecipacao)){
+                $tudoCerto = false;
+            }
+        }
+        if($tudoCerto == true){
+            $conn->commit();
+            return true;
+        }
+        $conn->rollback();
+        return false;
     }
 }

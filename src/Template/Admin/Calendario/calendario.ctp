@@ -76,15 +76,12 @@
 						$dia_semana = 0;
 					}
 					$dataTime = mktime(0,0,0, $mes, $dia, $ano);
+					$nowTime = mktime(0,0,0, date('m'), date('d'), date('Y'));
         			$data_dia = getdate($dataTime);
         			if(@$cal_mes[$dia]){
         				echo "<td><button class='btn btn-primary' value='$dia' style='width: 60px;'>".$dia."</button></td>";
         			}elseif(@$cal_mes[$dia]==false){
         				echo "<td><button class='btn btn-danger' value='$dia' style='width: 60px;'>".$dia."</button></td>";
-        			}elseif(!($data_dia['wday']>=1 and $data_dia['wday']<6)){
-        				echo "<td><button class='btn btn-danger' value='$dia' style='width: 60px;'>".$dia."</button></td>";
-        			}else{
-        				echo "<td><button class='btn btn-primary' value='$dia' style='width: 60px;'>".$dia."</button></td>";
         			}
 					$dia++;
 					$dia_semana++;

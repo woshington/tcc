@@ -49,4 +49,5 @@ class AulaController extends AppController
             ->toArray();
         echo json_encode($horario);
     }
+
 }

@@ -14,7 +14,7 @@ class ReposicaoAntecipacaoController extends AppController
     public function index(){
         $this->paginate = [
             'conditions'=>[
-                "COALESCE(ReposicaoAntecipacao.status, '') <>"=>"C"
+                "COALESCE(ReposicaoAntecipacao.status, '') <>"=>"RC"
             ]
         ];
         $this->set('reposicaoAntecipacao', $this->paginate($this->ReposicaoAntecipacao));
@@ -27,8 +27,7 @@ class ReposicaoAntecipacaoController extends AppController
         ]);
         $reposicaoAntecipacao = $this->ReposicaoAntecipacao->newEntity();
         $this->loadModel('AulaReposicaoAntecipacao');
-        if($this->request->is('post')){
-            
+        if($this->request->is('post')){            
             $this->request->data['dataReposicao'] = implode("-", array_reverse(explode("/", $this->request->data['dataReposicao'])));
             $data = $this->request->data['aulaReposicaoAntecipacao'];            
             unset($this->request->data['aulaReposicaoAntecipacao']);
@@ -51,7 +50,6 @@ class ReposicaoAntecipacaoController extends AppController
                 $this->AulaReposicaoAntecipacao->connection()->transactional(function () use ($aulas, &$solicitou) {
                     foreach ($aulas as $entity) {
                         if(!$this->AulaReposicaoAntecipacao->save($entity)){
-                            debug($entity);
                             $solicitou = false;
                             break;
                         }
@@ -60,7 +58,7 @@ class ReposicaoAntecipacaoController extends AppController
                 if($solicitou){
                     $this->Flash->success(__('Solicitação efetuada com sucesso!'));
                 }else{
-                    $reposicaoAntecipacao->status = 'C';
+                    $reposicaoAntecipacao->status = 'RC';
                     $this->ReposicaoAntecipacao->save($reposicaoAntecipacao);
                     $this->Flash->error(__('Impossivel gravar aula para reposicao!'));
                 }
@@ -71,15 +69,40 @@ class ReposicaoAntecipacaoController extends AppController
         $this->set(compact('usuario', 'reposicaoAntecipacao'));
         $this->set('_serialize', ['reposicaoAntecipacao']);
     }
-    public function json(){
-        $this->layout = 'ajax';
-        $this->loadModel('Turma');
-        echo json_encode($this->Turma->find()->toArray());
-    }
     public function solicitarAntecipacao(){
         $this->loadModel('Turma');
         $usuario = $this->Usuario->get($this->Auth->user('id'), ['contain'=>'Professor']);
         $turma = $usuario->professor->turmas;
-        $this->set(compact('turma'));
+        $reposicaoAntecipacao = $this->ReposicaoAntecipacao->newEntity();
+        if($this->request->is('post')){
+            $this->loadModel('Calendario');
+            $this->loadModel('Horario');
+            $this->loadModel('Aula');
+            $this->loadModel('AulaReposicaoAntecipacao');
+
+            $calendario = $this->Calendario->findByDataAndTurmaId(
+                $this->request->data['data'], 
+                $this->request->data['turma']
+            )->first();
+
+            $this->Aula->saveAulaAntecipacao($calendario, $this->request->data['antecipar']);
+
+            $reposicao = $this->ReposicaoAntecipacao->newEntity();
+            $reposicao->set([
+                'justificativa'=>$this->request->data['justificativa'],
+                'dataReposicao'=>$this->request->data['dataReposicao'],
+                'status'=>'AC'                
+            ]);
+            
+            if($this->ReposicaoAntecipacao->saveAntecipacao($reposicao, $this->request->data['antecipar'], $calendario)){
+                $this->Flash->success(__('Solicitação efetuada com sucesso!'));
+                $this->redirect(['controller'=>'professor','action'=>'minhasDisciplinas']);
+            }else{
+                $this->Flash->error(__('Solicitação não efetuada!'));                
+            }
+        }
+        $this->set(compact('turma', 'reposicaoAntecipacao'));
+        $this->set('_serialize', ['reposicaoAntecipacao']);
     }
 }
+ 
