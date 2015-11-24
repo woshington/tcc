@@ -90,8 +90,7 @@ class ReposicaoAntecipacaoController extends AppController
             $reposicao = $this->ReposicaoAntecipacao->newEntity();
             $reposicao->set([
                 'justificativa'=>$this->request->data['justificativa'],
-                'dataReposicao'=>$this->request->data['dataReposicao'],
-                'status'=>'AC'                
+                'dataReposicao'=>$this->request->data['dataReposicao'],                
             ]);
             
             if($this->ReposicaoAntecipacao->saveAntecipacao($reposicao, $this->request->data['antecipar'], $calendario)){

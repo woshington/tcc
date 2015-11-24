@@ -4,7 +4,7 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
 use Cake\Datasource\ConnectionManager;
-
+use Cake\I18n\Time;
 /**
  * Turma Entity.
  */
@@ -34,19 +34,21 @@ class Turma extends Entity
                 aula_reposicao_antecipacao as ara on a.id = ara.aula_id inner join
                 reposicao_antecipacao as ra on ara.reposicao_antecipacao_id = ra.id
                 WHERE (t.id = ".$this->id.") and (ra.dataReposicao = '".date('Y-m-d')."') 
-                AND (coalesce(ra.status,'')<>'RC')";
+                AND (NOT coalesce(ra.status,'') IN('RC', 'AC'))";                
+                // /echo $sql;
         return $connection->execute($sql)->fetchall('assoc');
     }
 
     public function _getAulasDia(){
         $connection = ConnectionManager::get('default');
-        $data = date('Y-m-d');
-        $dataTime = explode("-", $data);
-        $dataTime = mktime(0,0,0, $dataTime[1], $dataTime[2], $dataTime[0]);
+        $data = Time::now();
+
+        $dataTime = mktime(0,0,0, $data->month, $data->day, $data->year);
         $data_dia = getdate($dataTime);
 
         $sql = "SELECT h.id, h.aula, d.nome as disciplina, u.nome professor, 
-            CASE WHEN a.status IS NULL THEN 'P' ELSE a.status END  as status
+            CASE WHEN a.status IS NULL THEN 'P' ELSE a.status END  as status,
+            ara.status as ministrou_antecipacao
             FROM horario as h inner join 
             grade_curricular as gc on h.grade_curricular_id = gc.id inner join 
             turma as t on t.id = gc.turma_id inner join 
@@ -54,8 +56,9 @@ class Turma extends Entity
             disciplina as d on gc.disciplina_id = d.id inner join 
             professor as p on gc.professor_id = p.id inner join 
             usuario as u on p.usuario_id = u.id left outer join
-            aula as a on a.calendario_id = c.id and a.aula = h.aula
-            WHERE c.data = '".$data."' and c.letivo = true 
+            aula as a on a.calendario_id = c.id and a.aula = h.aula inner join
+            aula_reposicao_antecipacao as ara on a.id = ara.aula_id
+            WHERE c.data = '".$data->i18nFormat('yyyy-MM-dd')."' and c.letivo = true 
             and h.dia = ".$data_dia['wday'] . " and t.id = ".$this->id.
             " order by t.turno, h.aula";
         return $connection->execute($sql)->fetchall('assoc');

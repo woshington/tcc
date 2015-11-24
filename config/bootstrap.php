@@ -200,3 +200,7 @@ DispatcherFactory::add('ControllerFactory');
  * This is needed for matching the auto-localized string output of Time() class when parsing dates.
  */
 Type::build('datetime')->useLocaleParser();
+
+date_default_timezone_set('America/Fortaleza');
+
+ini_set('intl.default_locale', 'pt_BR');

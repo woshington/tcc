@@ -88,7 +88,7 @@ class UsuarioController extends AppController
 
     public function login()
     {
-        if ($this->request->is('post')) {            
+        if ($this->request->is('post')) {
             $user = $this->Auth->identify();
             if ($user) {
                 $this->Auth->setUser($user);
@@ -109,6 +109,8 @@ class UsuarioController extends AppController
             $this->Flash->error(__('Invalid username or password, try again'), [
                 'key' => 'auth',
             ]);
+        }elseif($this->Auth->user()){
+            $this->redirect(['action'=>'logout']);
         }
     }
 
