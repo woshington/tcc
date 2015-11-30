@@ -10,14 +10,15 @@ use App\Controller\AppController;
  */
 class AulaController extends AppController{    
 
-	public function index(){
+	public function index($dataBase = null){
 		$this->loadModel('Turma');
 		$turmas = $this->Turma->find()
-			->where(['Turma.ativo'=>true]);		
-		
-		$this->set(compact('horarios', 'turmas', 'aulasRegistradas', 'data', 'reposicoes'));
+			->where(['Turma.ativo'=>true]);
+		$dataBase = is_null($dataBase) ? date('Y-m-d') : $dataBase;
+
+		$this->set(compact('turmas', 'dataBase'));
     }
-    public function confirmar($horario_id, $faltou = false){
+    public function confirmar($horario_id, $dataBase, $faltou = false){
     	$this->loadModel('Horario');
     	$this->loadModel('Calendario');
     	$horario = $this->Horario->get($horario_id, [
@@ -26,7 +27,7 @@ class AulaController extends AppController{
     	
     	$calendario = $this->Calendario->find()
     		->where([
-    			'data'=>date('Y-m-d'), 
+    			'data'=>$dataBase, 
     			'turma_id'=>$horario->grade_curricular->turma_id
     		])
     		->first();
@@ -53,7 +54,7 @@ class AulaController extends AppController{
     	}else{
     		$this->Flash->error(__('Aula nao registrada. Please, try again.'));
     	}
-    	return $this->redirect(['action'=>'index']);
+    	return $this->redirect(['action'=>'index', $dataBase]);
     }
 
     public function faltaTurma(){

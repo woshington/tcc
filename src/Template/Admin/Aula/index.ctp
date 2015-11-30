@@ -11,9 +11,26 @@
 			$('#bodyReposicao'+turma).fadeIn('slow');		
 			$('#visivel'+turma).val('1');
 		}
-		
 	}
+	function filtroController($scope) {
+		console.log($scope.data);
+	}		
 </script>
+<div class="panel panel-default" ng-app='Filtro-App' >
+	<div class="panel-heading" ng-controller="filtroController">Data - <?=$dataBase?></div>
+	  <div class="panel-body">
+	  	<div class="row">
+	  		<div class="col-md-3"> 
+	  			<input type="date" name="data" ng-model="data" placeholder="yyyy-MM-dd" 
+	  	max="<?=date('Y-m-d')?>" class="form-control">
+	  		</div>
+	  		<div class="col-md-1">	  		
+  	<?=$this->Html->link('<span class="glyphicon glyphicon-search"> Filtrar</span>', ['action'=>'index/{{data}}'], ['class'=>'btn btn-default', 'escape'=>false]);?>
+	  			</a>
+	  		</div>
+	  	</div>	  	
+	  </div>
+</div>
 <?php foreach ($turmas as $key=>$turma): ?>
 	<div class="panel panel-default">
 	  <input type="hidden" id="visivel<?=$key?>" value="1">
@@ -29,7 +46,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach (@$turma->aulasDia as $aula): ?>
+				<?php 										
+					$aulasDia = $turma->getAulasDia($dataBase); 
+				?>
+				
+				<?php foreach (@$aulasDia as $aula): ?>
 					<?php 
 						$classe = '';
 						$exibirBtn = true;
@@ -55,8 +76,9 @@
 						<td>
 						<?php 
 						if($exibirBtn){
-							echo $this->Form->postLink(__('Faltou'),['action' => 'confirmar', $aula['id'], true], ['confirm'=>'Deseja aplicar essa falta?', 'class'=>'btn btn-danger']);
-							echo $this->Form->postLink(__('Ministrou'),['action' => 'confirmar', $aula['id']], ['confirm'=>'Confirmar presença?', 'class'=>'btn btn-success']);
+						
+							echo $this->Form->postLink(__('Faltou'),['action' => 'confirmar', $aula['id'], $dataBase, true], ['confirm'=>'Deseja aplicar essa falta?', 'class'=>'btn btn-danger']);
+							echo $this->Form->postLink(__('Ministrou'),['action' => 'confirmar', $aula['id'], $dataBase], ['confirm'=>'Confirmar presença?', 'class'=>'btn btn-success']);
 						}
 						?>
 						</td>
@@ -70,7 +92,8 @@
 	  <div class="panel-heading" id="headReposicao<?=$key?>">Reposições/Antecipações marcadas</div>
 	  <div class="panel-body" id="bodyReposicao<?=$key?>">
 	  	<table class="table">
-	  		<?php foreach ($turma->reposicoes as $reposicao): ?>
+	  		<?php $reposicoes = $turma->getReposicoes($dataBase);?>
+	  		<?php foreach ($reposicoes as $reposicao): ?>
 	  			<?php 
 						$classe = '';
 						if($reposicao['status']!='C')

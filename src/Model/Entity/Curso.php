@@ -14,12 +14,5 @@ class Curso extends Entity
      *
      * @var array
      */
-    protected $_accessible = [
-        'descricao' => true,
-        'sigla' => true,
-        'modalidade_id' => true,
-        'modalidade' => true,
-        'grade_curricular' => true,
-        'turma' => true,
-    ];
+    protected $_accessible = ['*' => true];
 }

@@ -32,7 +32,8 @@ class CursoTable extends Table
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('Eixo', [
-            'foreignKey' => 'eixo_id'
+            'foreignKey' => 'eixo_id',
+            'joinType' => 'INNER'
         ]);
         $this->hasMany('Turma', [
             'foreignKey' => 'curso_id'

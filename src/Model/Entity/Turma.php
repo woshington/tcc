@@ -19,7 +19,7 @@ class Turma extends Entity
     protected $_accessible = ['*'=>true];
 
 
-    protected function _getReposicoes(){
+    public function getReposicoes($dat){
         $connection = ConnectionManager::get('default');
        
         $sql = "SELECT ara.id, ara.aula_repor, ara.aula_id, ra.dataReposicao, ara.status, d.nome as disciplina,  
@@ -33,15 +33,14 @@ class Turma extends Entity
                 aula as a on c.id = a.calendario_id and d.id = a.disciplina_id inner join
                 aula_reposicao_antecipacao as ara on a.id = ara.aula_id inner join
                 reposicao_antecipacao as ra on ara.reposicao_antecipacao_id = ra.id
-                WHERE (t.id = ".$this->id.") and (ra.dataReposicao = '".date('Y-m-d')."') 
-                AND (NOT coalesce(ra.status,'') IN('RC', 'AC'))";                
-                // /echo $sql;
+                WHERE (t.id = ".$this->id.") and (ra.dataReposicao = '".$dat."') 
+                AND (NOT coalesce(ra.status,'') IN('RC', 'AC'))";                                
         return $connection->execute($sql)->fetchall('assoc');
     }
 
-    public function _getAulasDia(){
+    public function getAulasDia($dat){
         $connection = ConnectionManager::get('default');
-        $data = Time::now();
+        $data = new Time($dat);//Time::now();
 
         $dataTime = mktime(0,0,0, $data->month, $data->day, $data->year);
         $data_dia = getdate($dataTime);
@@ -56,11 +55,11 @@ class Turma extends Entity
             disciplina as d on gc.disciplina_id = d.id inner join 
             professor as p on gc.professor_id = p.id inner join 
             usuario as u on p.usuario_id = u.id left outer join
-            aula as a on a.calendario_id = c.id and a.aula = h.aula inner join
+            aula as a on a.calendario_id = c.id and a.aula = h.aula left outer join
             aula_reposicao_antecipacao as ara on a.id = ara.aula_id
             WHERE c.data = '".$data->i18nFormat('yyyy-MM-dd')."' and c.letivo = true 
             and h.dia = ".$data_dia['wday'] . " and t.id = ".$this->id.
-            " order by t.turno, h.aula";
+            " order by t.turno, h.aula";            
         return $connection->execute($sql)->fetchall('assoc');
     }
 }

@@ -85,6 +85,7 @@ class AulaReposicaoAntecipacaoTable extends Table
                 WHERE ra.dataReposicao = '".$data."' and 
                 c.turma_id = ".$aula->calendario->turma_id." and ara.aula_repor = ".$context['data']['aula_repor'];
         $confronto = $connection->execute($sql)->fetch('assoc');
+        
         return $confronto['qt']<=0;
     }
 }

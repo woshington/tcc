@@ -13,17 +13,8 @@
         <tr>
             <td><?= h($disciplina->nome) ?></td>
             <td class="actions">
-
-                
                 <?= $this->Html->link(__('View'), ['action' => 'view', $disciplina->id]) ?>
-                
-                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $disciplina->id]) ?>
-                <span class="glyphicon glyphicon-plus">
-                    <?php 
-                        echo  $this->Html->link(__('Grade'), [
-                            'action' => 'edit', $disciplina->id
-                        ],['class' => 'btn btn-primary']);
-                    ?>
+                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $disciplina->id]) ?>                
                 </span>
             </td>
         </tr>
@@ -35,7 +26,8 @@
         <ul class="pagination">
             <?= $this->Paginator->prev('< ' . __('previous')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
+            <?= $this->Paginator->next(__('next') . ' >') ?> 
+            <?=$this->Html->link(__('Nova'), [ 'action' => 'add'], ['class'=>'btn btn-default'])?>
         </ul>
         <p><?= $this->Paginator->counter() ?></p>
     </div>

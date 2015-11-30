@@ -58,10 +58,11 @@ class ReposicaoAntecipacaoTable extends Table
 
     public function saveAntecipacao(ReposicaoAntecipacao $reposicao, array $antecipacoes, Calendario $cal){        
         $aulas = $this->AulaReposicaoAntecipacao->Aula->find()
-            ->where([
-                'calendario_id'=>$cal->id,
-                'aula IN '=>$antecipacoes
-            ]);
+        ->where([
+            'calendario_id'=>$cal->id,
+            'aula IN '=>$antecipacoes
+        ]);
+
         $tudoCerto = true;
 //        $this->connection()->transactional(function () use ($reposicao, $aulas, $tudoCerto) {
         $conn = ConnectionManager::get('default');
@@ -74,6 +75,7 @@ class ReposicaoAntecipacaoTable extends Table
                 'aula_id'=>$aula->id,
                 'status'=>'C'
             ]);
+            //pr($)
             if(!$this->AulaReposicaoAntecipacao->save($aulaReposicaoAntecipacao)){
                 $tudoCerto = false;
             }

@@ -82,7 +82,7 @@ class AulaTable extends Table
     }
 
     public function saveAulaAntecipacao(Calendario $cal, array $aulas){
-        $dataTime = mktime(0,0,0, $cal->data->month, $cal->data->year, $cal->data->day);
+        $dataTime = mktime(0,0,0, $cal->data->month, $cal->data->day, $cal->data->year);
         $dia = getdate($dataTime);
         $horario = $this->Horario->find('list', [
             'keyField'=>'aula',
@@ -94,6 +94,7 @@ class AulaTable extends Table
             'aula IN'=>$aulas
         ])
         ->contain(['GradeCurricular']);
+
         foreach ($horario as $aula=>$disciplina_id) {
             $aula = $this->newEntity([
                 'status'=>'A',

@@ -95,7 +95,7 @@ class ReposicaoAntecipacaoController extends AppController
             
             if($this->ReposicaoAntecipacao->saveAntecipacao($reposicao, $this->request->data['antecipar'], $calendario)){
                 $this->Flash->success(__('Solicitação efetuada com sucesso!'));
-                $this->redirect(['controller'=>'professor','action'=>'minhasDisciplinas']);
+                //$this->redirect(['controller'=>'professor','action'=>'minhasDisciplinas']);
             }else{
                 $this->Flash->error(__('Solicitação não efetuada!'));                
             }
