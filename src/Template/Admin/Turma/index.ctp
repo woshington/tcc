@@ -28,7 +28,7 @@
                 <?php if (!$turma->ativo): ?>
                     <?php echo $this->Form->postLink(__('Ativar'),['action' => 'ativar', $turma->id], ['confirm'=>'Deseja ativar essa turma?', 'class'=>'btn btn-success']);?>
                 <?php else: ?>
-                    <?php echo $this->Form->postLink(__('Desativar'),['action' => 'ativar', $turma->id, false], ['confirm'=>'Deseja ativar essa turma?', 'class'=>'btn btn-danger']);?>
+                    <?php echo $this->Form->postLink(__('Desativar'),['action' => 'ativar', $turma->id, 0], ['confirm'=>'Deseja ativar essa turma?', 'class'=>'btn btn-danger']);?>
                 <?php endif ?>               
                  
             </td>
