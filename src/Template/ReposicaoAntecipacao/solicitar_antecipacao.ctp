@@ -20,7 +20,7 @@
         $scope.reposicao = {};
         $scope.change = function(){
             $scope.dias = [];
-            $http.get("http://localhost/tcc/turma/getDiasLetivos/"+$scope.turmaSelecionada)
+            $http.get("../turma/getDiasLetivos/"+$scope.turmaSelecionada)
                  .success(function(response) {
                     $scope.dias = response.dias;
                  }
@@ -28,7 +28,7 @@
         }
         $scope.aulasDoDia = function(data){
             $scope.dataMaxima = data;
-            $http.get("http://localhost/tcc/aula/getAulas/"+data+"/"+$scope.turmaSelecionada)
+            $http.get("../tcc/aula/getAulas/"+data+"/"+$scope.turmaSelecionada)
                  .success(function(response) {
                     $scope.horario = response.horario;
                  }
