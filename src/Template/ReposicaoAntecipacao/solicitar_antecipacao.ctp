@@ -28,7 +28,7 @@
         }
         $scope.aulasDoDia = function(data){
             $scope.dataMaxima = data;
-            $http.get("../tcc/aula/getAulas/"+data+"/"+$scope.turmaSelecionada)
+            $http.get("../aula/getAulas/"+data+"/"+$scope.turmaSelecionada)
                  .success(function(response) {
                     $scope.horario = response.horario;
                  }
