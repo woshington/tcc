@@ -12,13 +12,10 @@ class ReposicaoAntecipacaoController extends AppController
 {
 
     public function index(){
-        $this->paginate = [
-            'conditions'=>[
-                "COALESCE(ReposicaoAntecipacao.status, '') <>"=>"RC"
-            ]
-        ];
-        $this->set('reposicaoAntecipacao', $this->paginate($this->ReposicaoAntecipacao));
-        $this->set('_serialize', ['reposicaoAntecipacao']);
+        $this->loadModel('Professor');
+        $professor = $this->Professor->findByUsuarioId($this->Auth->user('id'))->first();
+        
+        $this->set('reposicaoAntecipacao', $professor->reposicoes);        
     }
     public function solicitarReposicao()
     {
@@ -29,10 +26,11 @@ class ReposicaoAntecipacaoController extends AppController
         $this->loadModel('AulaReposicaoAntecipacao');
         if($this->request->is('post')){            
             $this->request->data['dataReposicao'] = implode("-", array_reverse(explode("/", $this->request->data['dataReposicao'])));
-            $data = $this->request->data['aulaReposicaoAntecipacao'];            
+            $data = $this->request->data['aulaReposicaoAntecipacao'];
             unset($this->request->data['aulaReposicaoAntecipacao']);
 
             $reposicaoAntecipacao = $this->ReposicaoAntecipacao->newEntity($this->request->data);
+            $reposicaoAntecipacao->created = date('Y-m-d');
             if($this->ReposicaoAntecipacao->save($reposicaoAntecipacao)){                
                 $dados = [];
                 foreach ( $data as $key => $valor) {                    

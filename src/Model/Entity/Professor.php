@@ -69,4 +69,19 @@ class Professor extends Entity
             ->contain(['Turma'])
             ->toArray();
     }
+
+    public function _getReposicoes(){
+        $connection = ConnectionManager::get('default');
+        $sql = "select ra.* from aula a inner join
+            calendario as c on a.calendario_id = c.id inner join
+            disciplina d on a.disciplina_id = d.id   inner join
+            turma as t on c.turma_id = t.id inner join
+            grade_curricular as gc on gc.disciplina_id = d.id and gc.turma_id = t.id inner join
+            professor as p on gc.professor_id = p.id inner join 
+            usuario as u on p.usuario_id = u.id inner join
+            aula_reposicao_antecipacao as ara on a.id = ara.aula_id inner join
+            reposicao_antecipacao as ra on ra.id = ara.reposicao_antecipacao_id
+        where (coalesce(ra.status,'')<>'RC') and (p.id = ".$this->id.");";
+        return $connection->execute($sql)->fetchAll('assoc');
+    }
 }
